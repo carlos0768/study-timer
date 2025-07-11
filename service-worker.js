@@ -1,11 +1,11 @@
 const CACHE_NAME = 'study-timer-v1';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/app.js',
-    '/emperors_lat_jp.csv',
-    '/manifest.json'
+    './',
+    './index.html',
+    './style.css',
+    './app.js',
+    './emperors_lat_jp.csv',
+    './manifest.json'
 ];
 
 self.addEventListener('install', event => {
