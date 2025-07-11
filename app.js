@@ -530,6 +530,7 @@ class StudyTimer {
     setTime(minutes) {
         if (!this.isRunning) {
             this.timeRemaining = minutes * 60;
+            localStorage.setItem('timeRemaining', this.timeRemaining);
             this.updateDisplay();
         }
     }
