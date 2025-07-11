@@ -191,21 +191,25 @@ class StudyTimer {
         // デバッグ用ログ
         console.log('Current emperor:', emperor);
         
+        // 画像読み込み前にクロスオリジン設定
+        this.elements.emperorImage.crossOrigin = 'anonymous';
+        
         if (emperor.img.startsWith('http')) {
-            this.elements.emperorImage.src = emperor.img;
+            // HTTPSかどうか確認
+            if (emperor.img.startsWith('https://')) {
+                this.elements.emperorImage.src = emperor.img;
+            } else {
+                // HTTPの場合はデフォルト画像を使用
+                this.elements.emperorImage.src = './assets/emperors/default.webp';
+            }
         } else {
             this.elements.emperorImage.src = `./assets/emperors/${emperor.img}`;
         }
         
-        this.elements.emperorImage.onerror = async () => {
+        this.elements.emperorImage.onerror = () => {
             console.error('Failed to load image:', emperor.img);
-            // Wikipediaから画像を検索
-            const fallbackImage = await this.searchWikipediaImage(emperor.name);
-            if (fallbackImage) {
-                this.elements.emperorImage.src = fallbackImage;
-            } else {
-                this.elements.emperorImage.src = './assets/emperors/default.webp';
-            }
+            // エラー時は即座にデフォルト画像を表示
+            this.elements.emperorImage.src = './assets/emperors/default.webp';
         };
     }
 
