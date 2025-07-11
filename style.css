@@ -103,17 +103,28 @@ main {
 
 .quote-latin {
     font-style: italic;
-    font-size: 18px;
-    margin-bottom: 12px;
+    font-size: 16px;
+    margin-bottom: 8px;
     color: var(--text-secondary);
     line-height: 1.5;
+    opacity: 0.8;
+}
+
+.quote-en {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
 }
 
 .quote-jp {
-    font-size: 16px;
-    color: var(--text-primary);
-    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 400;
     line-height: 1.5;
+    opacity: 0.7;
 }
 
 .timer-section {

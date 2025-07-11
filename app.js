@@ -45,6 +45,7 @@ class StudyTimer {
             emperorImage: document.getElementById('emperor-image'),
             emperorName: document.getElementById('emperor-name'),
             emperorQuoteLatin: document.getElementById('emperor-quote-latin'),
+            emperorQuoteEn: document.getElementById('emperor-quote-en'),
             emperorQuoteJp: document.getElementById('emperor-quote-jp'),
             presetButtons: document.querySelectorAll('.preset-btn'),
             shareTwitterBtn: document.getElementById('share-twitter-btn')
@@ -78,7 +79,7 @@ class StudyTimer {
     async loadEmperorsData() {
         try {
             // CSVから読み込み
-            const response = await fetch('./emperors_lat_jp.csv');
+            const response = await fetch('./emperors_motivational.csv');
             if (!response.ok) {
                 throw new Error('CSV ロード失敗');
             }
@@ -98,6 +99,7 @@ class StudyTimer {
         return [{
             name: 'Marcus Aurelius',
             quoteLatin: 'What we do now echoes in eternity',
+            quoteEn: 'What we do now echoes in eternity',
             quoteJp: '今我々が行うことは永遠に響き渡る',
             img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Marcus_Aurelius_Glyptothek_Munich.jpg/200px-Marcus_Aurelius_Glyptothek_Munich.jpg'
         }];
@@ -122,13 +124,14 @@ class StudyTimer {
                 values.push(value.trim());
             }
             
-            if (values.length >= 5) {
+            if (values.length >= 6) {
                 emperors.push({
                     id: values[0],
                     name: values[1],
                     quoteLatin: values[2],
-                    quoteJp: values[3],
-                    img: values[4]
+                    quoteEn: values[3],
+                    quoteJp: values[4],
+                    img: values[5]
                 });
             }
         }
@@ -181,6 +184,7 @@ class StudyTimer {
         const emperor = this.emperors[this.currentEmperorIndex];
         this.elements.emperorName.textContent = emperor.name;
         this.elements.emperorQuoteLatin.textContent = emperor.quoteLatin;
+        this.elements.emperorQuoteEn.textContent = emperor.quoteEn;
         this.elements.emperorQuoteJp.textContent = emperor.quoteJp;
         
         // デバッグ用ログ

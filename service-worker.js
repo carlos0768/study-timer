@@ -4,7 +4,7 @@ const urlsToCache = [
     './index.html',
     './style.css',
     './app.js',
-    './emperors_lat_jp.csv',
+    './emperors_motivational.csv',
     './manifest.json'
 ];
 
