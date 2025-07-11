@@ -370,6 +370,18 @@ class StudyTimer {
         this.elements.pauseBtn.disabled = true;
         
         this.updateDisplay();
+        
+        // セッション終了時に名言を変更
+        this.rotateEmperor();
+        
+        // visibilitychangeイベントリスナーを削除
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+        
+        this.showNotification(
+            this.isBreakTime 
+                ? `お疲れ様！${this.pomodoroBreakTime}分休憩しましょう` 
+                : `休憩終了！次の${this.pomodoroWorkTime}分頑張りましょう`
+        );
     }
 
     playBeep() {
