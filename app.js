@@ -191,8 +191,22 @@ class StudyTimer {
         // デバッグ用ログ
         console.log('Current emperor:', emperor);
         
-        // 画像の読み込み処理を改善
-        this.loadEmperorImage(emperor);
+        if (emperor.img.startsWith('http')) {
+            this.elements.emperorImage.src = emperor.img;
+        } else {
+            this.elements.emperorImage.src = `./assets/emperors/${emperor.img}`;
+        }
+        
+        this.elements.emperorImage.onerror = async () => {
+            console.error('Failed to load image:', emperor.img);
+            // Wikipediaから画像を検索
+            const fallbackImage = await this.searchWikipediaImage(emperor.name);
+            if (fallbackImage) {
+                this.elements.emperorImage.src = fallbackImage;
+            } else {
+                this.elements.emperorImage.src = './assets/emperors/default.webp';
+            }
+        };
     }
 
     registerServiceWorker() {
@@ -515,20 +529,6 @@ class StudyTimer {
         }, 3000);
     }
 
-    loadEmperorImage(emperor) {
-        // シンプルな画像読み込み処理に戻す
-        if (emperor.img.startsWith('http')) {
-            this.elements.emperorImage.src = emperor.img;
-        } else {
-            this.elements.emperorImage.src = `./assets/emperors/${emperor.img}`;
-        }
-        
-        // 画像読み込みエラー時のフォールバック
-        this.elements.emperorImage.onerror = () => {
-            console.error('Failed to load image:', emperor.img);
-            this.elements.emperorImage.src = './assets/emperors/default.webp';
-        };
-    }
 
     handleVisibilityChange() {
         if (!document.hidden && this.isRunning) {
