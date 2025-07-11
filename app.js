@@ -12,6 +12,7 @@ class StudyTimer {
         this.dailyStats = this.loadDailyStats();
         this.emperors = [];
         this.currentEmperorIndex = parseInt(localStorage.getItem('currentEmperorIndex') || '0');
+        this.wakeLock = null;
         
         this.initializeElements();
         this.initializeEventListeners();
@@ -285,6 +286,32 @@ class StudyTimer {
         }
     }
 
+    async requestWakeLock() {
+        if ('wakeLock' in navigator) {
+            try {
+                this.wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Wake Lock activated');
+                
+                this.wakeLock.addEventListener('release', () => {
+                    console.log('Wake Lock released');
+                });
+            } catch (err) {
+                console.error('Wake Lock error:', err);
+            }
+        }
+    }
+
+    async releaseWakeLock() {
+        if (this.wakeLock) {
+            try {
+                await this.wakeLock.release();
+                this.wakeLock = null;
+            } catch (err) {
+                console.error('Wake Lock release error:', err);
+            }
+        }
+    }
+
     loadSettings() {
         const savedWork = localStorage.getItem('pomodoroWorkTime');
         const savedBreak = localStorage.getItem('pomodoroBreakTime');
@@ -315,12 +342,15 @@ class StudyTimer {
         }
     }
 
-    start() {
+    async start() {
         if (!this.isRunning) {
             this.isRunning = true;
             this.isPaused = false;
             this.elements.startBtn.disabled = true;
             this.elements.pauseBtn.disabled = false;
+            
+            // 画面をオンに保つ
+            await this.requestWakeLock();
             
             // 現在のtimeRemainingを初期時間として保存
             localStorage.setItem('timerInitialTime', this.timeRemaining);
@@ -334,11 +364,14 @@ class StudyTimer {
         }
     }
 
-    pause() {
+    async pause() {
         if (this.isRunning && !this.isPaused) {
             this.isPaused = true;
             this.isRunning = false;
             clearInterval(this.timerInterval);
+            
+            // Wake Lockを解除
+            await this.releaseWakeLock();
             
             // visibilitychangeイベントリスナーを削除
             document.removeEventListener('visibilitychange', this.handleVisibilityChange);
@@ -361,10 +394,13 @@ class StudyTimer {
         }
     }
 
-    reset() {
+    async reset() {
         this.isRunning = false;
         this.isPaused = false;
         clearInterval(this.timerInterval);
+        
+        // Wake Lockを解除
+        await this.releaseWakeLock();
         
         // visibilitychangeイベントリスナーを削除
         document.removeEventListener('visibilitychange', this.handleVisibilityChange);
@@ -400,9 +436,12 @@ class StudyTimer {
         }
     }
 
-    timerComplete() {
+    async timerComplete() {
         clearInterval(this.timerInterval);
         this.isRunning = false;
+        
+        // Wake Lockを解除
+        await this.releaseWakeLock();
         
         localStorage.setItem('timerRunning', 'false');
         localStorage.removeItem('timerStartTime');
@@ -593,10 +632,15 @@ class StudyTimer {
     }
 
 
-    handleVisibilityChange() {
+    async handleVisibilityChange() {
         if (!document.hidden && this.isRunning) {
             // ページが表示されたときに、経過時間を再計算
             this.tick();
+            
+            // Wake Lockを再取得（バックグラウンドで解除された可能性があるため）
+            if (!this.wakeLock) {
+                await this.requestWakeLock();
+            }
         }
     }
 
