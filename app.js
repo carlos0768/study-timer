@@ -213,11 +213,9 @@ class StudyTimer {
         // デフォルト画像のパス
         const defaultImage = './assets/emperors/default.webp';
         
-        // まずデフォルト画像を設定
-        this.elements.emperorImage.src = defaultImage;
-        
         if (!emperor.img) {
             console.log('No image URL provided, using default');
+            this.elements.emperorImage.src = defaultImage;
             return;
         }
         
@@ -231,41 +229,36 @@ class StudyTimer {
         } 
         // Wikipedia画像の場合
         else if (imageUrl.startsWith('https://upload.wikimedia.org/')) {
-            // プロキシなしで直接読み込み（CORSの問題を回避）
+            // Wikipedia画像を直接読み込み（CORSヘッダーが設定されている）
             this.tryLoadImage(imageUrl, defaultImage);
         }
         // その他のURL
         else {
             console.log('Unsupported image URL format:', imageUrl);
+            this.elements.emperorImage.src = defaultImage;
         }
     }
 
     tryLoadImage(imageUrl, fallbackUrl) {
-        // シンプルなアプローチ：直接img要素のsrcを設定
-        const img = this.elements.emperorImage;
+        const imgElement = this.elements.emperorImage;
         
-        // エラーハンドラを一時的に設定
-        const handleError = () => {
+        // 新しいImageオブジェクトで事前読み込み
+        const testImg = new Image();
+        testImg.crossOrigin = 'anonymous';
+        
+        testImg.onload = () => {
+            console.log('Image loaded successfully:', imageUrl);
+            imgElement.src = imageUrl;
+        };
+        
+        testImg.onerror = () => {
             console.error('Image loading failed:', imageUrl);
             console.log('Using fallback image:', fallbackUrl);
-            img.src = fallbackUrl;
-            // ハンドラを削除
-            img.removeEventListener('error', handleError);
+            imgElement.src = fallbackUrl;
         };
         
-        const handleLoad = () => {
-            console.log('Image loaded successfully:', imageUrl);
-            // ハンドラを削除
-            img.removeEventListener('load', handleLoad);
-            img.removeEventListener('error', handleError);
-        };
-        
-        // イベントリスナーを追加
-        img.addEventListener('error', handleError, { once: true });
-        img.addEventListener('load', handleLoad, { once: true });
-        
-        // 画像のソースを設定
-        img.src = imageUrl;
+        // 画像の読み込みを開始
+        testImg.src = imageUrl;
     }
 
     registerServiceWorker() {
