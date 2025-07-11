@@ -78,7 +78,7 @@ class StudyTimer {
     async loadEmperorsData() {
         try {
             // CSVから読み込み
-            const response = await fetch('emperors_lat_jp.csv');
+            const response = await fetch('/emperors_lat_jp.csv');
             if (!response.ok) {
                 throw new Error('CSV ロード失敗');
             }
@@ -189,7 +189,7 @@ class StudyTimer {
         if (emperor.img.startsWith('http')) {
             this.elements.emperorImage.src = emperor.img;
         } else {
-            this.elements.emperorImage.src = `assets/emperors/${emperor.img}`;
+            this.elements.emperorImage.src = `/assets/emperors/${emperor.img}`;
         }
         
         this.elements.emperorImage.onerror = async () => {
@@ -199,7 +199,7 @@ class StudyTimer {
             if (fallbackImage) {
                 this.elements.emperorImage.src = fallbackImage;
             } else {
-                this.elements.emperorImage.src = 'assets/emperors/default.webp';
+                this.elements.emperorImage.src = '/assets/emperors/default.webp';
             }
         };
     }
