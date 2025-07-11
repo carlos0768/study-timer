@@ -242,6 +242,9 @@ class StudyTimer {
     tryLoadImage(imageUrl, fallbackUrl) {
         const imgElement = this.elements.emperorImage;
         
+        // まずフォールバック画像を設定（読み込み中の表示として）
+        imgElement.src = fallbackUrl;
+        
         // 新しいImageオブジェクトで事前読み込み
         const testImg = new Image();
         testImg.crossOrigin = 'anonymous';
@@ -254,8 +257,15 @@ class StudyTimer {
         testImg.onerror = () => {
             console.error('Image loading failed:', imageUrl);
             console.log('Using fallback image:', fallbackUrl);
-            imgElement.src = fallbackUrl;
+            // すでにフォールバック画像が設定されているので、再設定は不要
         };
+        
+        // タイムアウトを設定（5秒）
+        setTimeout(() => {
+            if (imgElement.src !== imageUrl) {
+                console.log('Image loading timeout, keeping fallback image');
+            }
+        }, 5000);
         
         // 画像の読み込みを開始
         testImg.src = imageUrl;
