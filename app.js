@@ -191,24 +191,67 @@ class StudyTimer {
         // デバッグ用ログ
         console.log('Current emperor:', emperor);
         
-        // まずデフォルト画像を確実に設定
-        this.elements.emperorImage.src = './assets/emperors/default.webp';
+        // 画像読み込みを改善
+        this.loadEmperorImage(emperor);
+    }
+
+    loadEmperorImage(emperor) {
+        // デフォルト画像のパス
+        const defaultImage = './assets/emperors/default.webp';
         
-        // 少し遅延してから実際の画像を読み込む
-        setTimeout(() => {
-            if (emperor.img && emperor.img.startsWith('https://')) {
-                const newImg = new Image();
-                newImg.onload = () => {
-                    // 画像の読み込みに成功したら表示
-                    this.elements.emperorImage.src = emperor.img;
-                };
-                newImg.onerror = () => {
-                    console.log('Image load failed, keeping default');
-                    // エラーの場合はデフォルトのまま
-                };
-                newImg.src = emperor.img;
-            }
-        }, 100);
+        // まずデフォルト画像を設定
+        this.elements.emperorImage.src = defaultImage;
+        
+        if (!emperor.img) {
+            console.log('No image URL provided, using default');
+            return;
+        }
+        
+        // 画像URLの検証
+        const imageUrl = emperor.img.trim();
+        
+        // ローカル画像の場合
+        if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+            const localImagePath = `./assets/emperors/${imageUrl}`;
+            this.tryLoadImage(localImagePath, defaultImage);
+        } 
+        // Wikipedia画像の場合
+        else if (imageUrl.startsWith('https://upload.wikimedia.org/')) {
+            // プロキシなしで直接読み込み（CORSの問題を回避）
+            this.tryLoadImage(imageUrl, defaultImage);
+        }
+        // その他のURL
+        else {
+            console.log('Unsupported image URL format:', imageUrl);
+        }
+    }
+
+    tryLoadImage(imageUrl, fallbackUrl) {
+        // シンプルなアプローチ：直接img要素のsrcを設定
+        const img = this.elements.emperorImage;
+        
+        // エラーハンドラを一時的に設定
+        const handleError = () => {
+            console.error('Image loading failed:', imageUrl);
+            console.log('Using fallback image:', fallbackUrl);
+            img.src = fallbackUrl;
+            // ハンドラを削除
+            img.removeEventListener('error', handleError);
+        };
+        
+        const handleLoad = () => {
+            console.log('Image loaded successfully:', imageUrl);
+            // ハンドラを削除
+            img.removeEventListener('load', handleLoad);
+            img.removeEventListener('error', handleError);
+        };
+        
+        // イベントリスナーを追加
+        img.addEventListener('error', handleError, { once: true });
+        img.addEventListener('load', handleLoad, { once: true });
+        
+        // 画像のソースを設定
+        img.src = imageUrl;
     }
 
     registerServiceWorker() {
