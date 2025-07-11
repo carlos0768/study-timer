@@ -1,5 +1,6 @@
 class StudyTimer {
     constructor() {
+        this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
         this.timerInterval = null;
         this.timeRemaining = parseInt(localStorage.getItem('timeRemaining') || (25 * 60));
         this.isRunning = false;
@@ -262,7 +263,17 @@ class StudyTimer {
             localStorage.setItem('timerRunning', 'true');
             localStorage.setItem('timerStartTime', new Date().getTime());
             
+            // 初回実行時の時間を記録
+            if (!localStorage.getItem('timerStartTime')) {
+                const initialTime = this.isBreakTime ? this.pomodoroBreakTime * 60 : this.pomodoroWorkTime * 60;
+                const startTime = new Date().getTime() - ((initialTime - this.timeRemaining) * 1000);
+                localStorage.setItem('timerStartTime', startTime);
+            }
+            
             this.timerInterval = setInterval(() => this.tick(), 1000);
+            
+            // ページ復帰時の処理
+            document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
         }
     }
 
@@ -271,6 +282,18 @@ class StudyTimer {
             this.isPaused = true;
             this.isRunning = false;
             clearInterval(this.timerInterval);
+            
+            // visibilitychangeイベントリスナーを削除
+            document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+            
+            // 一時停止時は経過時間を保存
+            const startTime = parseInt(localStorage.getItem('timerStartTime'));
+            if (startTime) {
+                const elapsed = Math.floor((new Date().getTime() - startTime) / 1000);
+                const initialTime = this.isBreakTime ? this.pomodoroBreakTime * 60 : this.pomodoroWorkTime * 60;
+                this.timeRemaining = Math.max(0, initialTime - elapsed);
+                localStorage.setItem('timeRemaining', this.timeRemaining);
+            }
             
             localStorage.setItem('timerRunning', 'false');
             localStorage.removeItem('timerStartTime');
@@ -285,6 +308,9 @@ class StudyTimer {
         this.isPaused = false;
         clearInterval(this.timerInterval);
         
+        // visibilitychangeイベントリスナーを削除
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+        
         this.timeRemaining = this.isBreakTime ? this.pomodoroBreakTime * 60 : this.pomodoroWorkTime * 60;
         
         localStorage.setItem('timeRemaining', this.timeRemaining);
@@ -298,9 +324,16 @@ class StudyTimer {
     }
 
     tick() {
-        if (this.timeRemaining > 0) {
-            this.timeRemaining--;
+        // 実際の経過時間を計算してタイマーを更新
+        const startTime = parseInt(localStorage.getItem('timerStartTime'));
+        if (startTime) {
+            const elapsed = Math.floor((new Date().getTime() - startTime) / 1000);
+            const initialTime = this.isBreakTime ? this.pomodoroBreakTime * 60 : this.pomodoroWorkTime * 60;
+            this.timeRemaining = Math.max(0, initialTime - elapsed);
             localStorage.setItem('timeRemaining', this.timeRemaining);
+        }
+        
+        if (this.timeRemaining > 0) {
             this.updateDisplay();
         } else {
             this.timerComplete();
@@ -482,6 +515,13 @@ class StudyTimer {
         setTimeout(() => {
             this.elements.notification.classList.remove('show');
         }, 3000);
+    }
+
+    handleVisibilityChange() {
+        if (!document.hidden && this.isRunning) {
+            // ページが表示されたときに、経過時間を再計算
+            this.tick();
+        }
     }
 
     shareOnTwitter() {
