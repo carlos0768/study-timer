@@ -1,0 +1,21 @@
+{
+  "name": "study-timer",
+  "version": "1.0.0",
+  "description": "ローマ皇帝と学ぶポモドーロタイマー",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx http-server -p 8080 -c-1",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "study",
+    "pwa"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
