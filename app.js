@@ -80,7 +80,7 @@ class StudyTimer {
     async loadEmperorsData() {
         try {
             // CSVから読み込み
-            const response = await fetch('./emperors_lat_jp.csv');
+            const response = await fetch('./emperors_quotes_final.csv');
             if (!response.ok) {
                 throw new Error('CSV ロード失敗');
             }
@@ -111,28 +111,41 @@ class StudyTimer {
         const emperors = [];
 
         for (let i = 1; i < lines.length; i++) {
-            // 正規表現でCSVを適切にパース（カンマを含む引用符付き文字列に対応）
-            const regex = /(?:,|^)("(?:[^"]+|"")*"|[^,]*)/g;
             const values = [];
-            let match;
+            let currentValue = '';
+            let inQuotes = false;
             
-            while ((match = regex.exec(lines[i])) !== null) {
-                let value = match[1];
-                // 引用符を除去
-                if (value.startsWith('"') && value.endsWith('"')) {
-                    value = value.slice(1, -1).replace(/""/g, '"');
+            for (let j = 0; j < lines[i].length; j++) {
+                const char = lines[i][j];
+                
+                if (char === '"') {
+                    if (inQuotes && lines[i][j + 1] === '"') {
+                        // エスケープされた引用符
+                        currentValue += '"';
+                        j++; // 次の引用符をスキップ
+                    } else {
+                        // 引用符の開始/終了
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    // フィールドの区切り
+                    values.push(currentValue.trim());
+                    currentValue = '';
+                } else {
+                    currentValue += char;
                 }
-                values.push(value.trim());
             }
+            // 最後のフィールドを追加
+            values.push(currentValue.trim());
             
-            if (values.length >= 5) {
+            if (values.length >= 6) {
                 emperors.push({
                     id: values[0],
                     name: values[1],
                     quoteLatin: values[2],
-                    quoteEn: '',  // CSVには含まれていない
-                    quoteJp: values[3],
-                    img: values[4]
+                    quoteEn: values[3],
+                    quoteJp: values[4],
+                    img: values[5]
                 });
             }
         }
@@ -190,6 +203,7 @@ class StudyTimer {
         
         // デバッグ用ログ
         console.log('Current emperor:', emperor);
+        console.log('Image URL:', emperor.img);
         
         // 画像読み込みを改善
         this.loadEmperorImage(emperor);

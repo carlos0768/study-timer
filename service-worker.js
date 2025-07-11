@@ -1,10 +1,10 @@
-const CACHE_NAME = 'study-timer-v3';
+const CACHE_NAME = 'study-timer-v4';
 const urlsToCache = [
     './',
     './index.html',
     './style.css',
     './app.js',
-    './emperors_lat_jp.csv',
+    './emperors_quotes_final.csv',
     './manifest.json',
     './assets/icon-192.png',
     './assets/icon-512.png',
