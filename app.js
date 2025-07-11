@@ -79,7 +79,7 @@ class StudyTimer {
     async loadEmperorsData() {
         try {
             // CSVから読み込み
-            const response = await fetch('./emperors_motivational.csv');
+            const response = await fetch('./emperors_quotes_final.csv');
             if (!response.ok) {
                 throw new Error('CSV ロード失敗');
             }
