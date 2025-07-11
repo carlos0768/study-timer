@@ -125,14 +125,14 @@ class StudyTimer {
                 values.push(value.trim());
             }
             
-            if (values.length >= 6) {
+            if (values.length >= 5) {
                 emperors.push({
                     id: values[0],
                     name: values[1],
                     quoteLatin: values[2],
-                    quoteEn: values[3],
-                    quoteJp: values[4],
-                    img: values[5]
+                    quoteEn: '',  // CSVには含まれていない
+                    quoteJp: values[3],
+                    img: values[4]
                 });
             }
         }
