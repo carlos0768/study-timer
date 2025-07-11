@@ -191,22 +191,8 @@ class StudyTimer {
         // デバッグ用ログ
         console.log('Current emperor:', emperor);
         
-        if (emperor.img.startsWith('http')) {
-            this.elements.emperorImage.src = emperor.img;
-        } else {
-            this.elements.emperorImage.src = `./assets/emperors/${emperor.img}`;
-        }
-        
-        this.elements.emperorImage.onerror = async () => {
-            console.error('Failed to load image:', emperor.img);
-            // Wikipediaから画像を検索
-            const fallbackImage = await this.searchWikipediaImage(emperor.name);
-            if (fallbackImage) {
-                this.elements.emperorImage.src = fallbackImage;
-            } else {
-                this.elements.emperorImage.src = './assets/emperors/default.webp';
-            }
-        };
+        // 画像の読み込み処理を改善
+        this.loadEmperorImage(emperor);
     }
 
     registerServiceWorker() {
@@ -527,6 +513,42 @@ class StudyTimer {
         setTimeout(() => {
             this.elements.notification.classList.remove('show');
         }, 3000);
+    }
+
+    async loadEmperorImage(emperor) {
+        // デフォルト画像を先に設定
+        this.elements.emperorImage.src = './assets/emperors/default.webp';
+        
+        try {
+            if (emperor.img.startsWith('http')) {
+                // 外部画像の場合、フェッチしてBlobに変換
+                const response = await fetch(emperor.img);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const objectURL = URL.createObjectURL(blob);
+                    this.elements.emperorImage.src = objectURL;
+                    
+                    // メモリリークを防ぐため、古いURLを削除
+                    this.elements.emperorImage.onload = () => {
+                        if (this.currentImageURL && this.currentImageURL !== objectURL) {
+                            URL.revokeObjectURL(this.currentImageURL);
+                        }
+                        this.currentImageURL = objectURL;
+                    };
+                }
+            } else {
+                this.elements.emperorImage.src = `./assets/emperors/${emperor.img}`;
+            }
+        } catch (error) {
+            console.error('Failed to load emperor image:', error);
+            // エラー時はデフォルト画像のまま
+        }
+        
+        // それでも失敗した場合のフォールバック
+        this.elements.emperorImage.onerror = () => {
+            console.error('Image loading failed, using default');
+            this.elements.emperorImage.src = './assets/emperors/default.webp';
+        };
     }
 
     handleVisibilityChange() {
