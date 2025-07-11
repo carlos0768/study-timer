@@ -191,26 +191,24 @@ class StudyTimer {
         // デバッグ用ログ
         console.log('Current emperor:', emperor);
         
-        // 画像読み込み前にクロスオリジン設定
-        this.elements.emperorImage.crossOrigin = 'anonymous';
+        // まずデフォルト画像を確実に設定
+        this.elements.emperorImage.src = './assets/emperors/default.webp';
         
-        if (emperor.img.startsWith('http')) {
-            // HTTPSかどうか確認
-            if (emperor.img.startsWith('https://')) {
-                this.elements.emperorImage.src = emperor.img;
-            } else {
-                // HTTPの場合はデフォルト画像を使用
-                this.elements.emperorImage.src = './assets/emperors/default.webp';
+        // 少し遅延してから実際の画像を読み込む
+        setTimeout(() => {
+            if (emperor.img && emperor.img.startsWith('https://')) {
+                const newImg = new Image();
+                newImg.onload = () => {
+                    // 画像の読み込みに成功したら表示
+                    this.elements.emperorImage.src = emperor.img;
+                };
+                newImg.onerror = () => {
+                    console.log('Image load failed, keeping default');
+                    // エラーの場合はデフォルトのまま
+                };
+                newImg.src = emperor.img;
             }
-        } else {
-            this.elements.emperorImage.src = `./assets/emperors/${emperor.img}`;
-        }
-        
-        this.elements.emperorImage.onerror = () => {
-            console.error('Failed to load image:', emperor.img);
-            // エラー時は即座にデフォルト画像を表示
-            this.elements.emperorImage.src = './assets/emperors/default.webp';
-        };
+        }, 100);
     }
 
     registerServiceWorker() {

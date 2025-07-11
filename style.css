@@ -81,11 +81,9 @@ main {
     box-shadow: var(--shadow-lg);
     transition: transform 0.3s ease;
     background-color: var(--bg-light);
-    /* 画像読み込み中の表示改善 */
-    background-image: linear-gradient(45deg, var(--bg-medium) 25%, transparent 25%, transparent 75%, var(--bg-medium) 75%, var(--bg-medium)),
-                      linear-gradient(45deg, var(--bg-medium) 25%, transparent 25%, transparent 75%, var(--bg-medium) 75%, var(--bg-medium));
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
+    /* iPadのSafari対応 */
+    -webkit-appearance: none;
+    image-rendering: auto;
 }
 
 .emperor-image:hover {
