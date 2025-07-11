@@ -322,15 +322,10 @@ class StudyTimer {
             this.elements.startBtn.disabled = true;
             this.elements.pauseBtn.disabled = false;
             
+            // 現在のtimeRemainingを初期時間として保存
+            localStorage.setItem('timerInitialTime', this.timeRemaining);
             localStorage.setItem('timerRunning', 'true');
             localStorage.setItem('timerStartTime', new Date().getTime());
-            
-            // 初回実行時の時間を記録
-            if (!localStorage.getItem('timerStartTime')) {
-                const initialTime = this.isBreakTime ? this.pomodoroBreakTime * 60 : this.pomodoroWorkTime * 60;
-                const startTime = new Date().getTime() - ((initialTime - this.timeRemaining) * 1000);
-                localStorage.setItem('timerStartTime', startTime);
-            }
             
             this.timerInterval = setInterval(() => this.tick(), 1000);
             
@@ -350,15 +345,16 @@ class StudyTimer {
             
             // 一時停止時は経過時間を保存
             const startTime = parseInt(localStorage.getItem('timerStartTime'));
-            if (startTime) {
+            const initialTime = parseInt(localStorage.getItem('timerInitialTime'));
+            if (startTime && initialTime) {
                 const elapsed = Math.floor((new Date().getTime() - startTime) / 1000);
-                const initialTime = this.isBreakTime ? this.pomodoroBreakTime * 60 : this.pomodoroWorkTime * 60;
                 this.timeRemaining = Math.max(0, initialTime - elapsed);
                 localStorage.setItem('timeRemaining', this.timeRemaining);
             }
             
             localStorage.setItem('timerRunning', 'false');
             localStorage.removeItem('timerStartTime');
+            localStorage.removeItem('timerInitialTime');
             
             this.elements.startBtn.disabled = false;
             this.elements.pauseBtn.disabled = true;
@@ -378,6 +374,7 @@ class StudyTimer {
         localStorage.setItem('timeRemaining', this.timeRemaining);
         localStorage.setItem('timerRunning', 'false');
         localStorage.removeItem('timerStartTime');
+        localStorage.removeItem('timerInitialTime');
         
         this.elements.startBtn.disabled = false;
         this.elements.pauseBtn.disabled = true;
@@ -388,9 +385,10 @@ class StudyTimer {
     tick() {
         // 実際の経過時間を計算してタイマーを更新
         const startTime = parseInt(localStorage.getItem('timerStartTime'));
-        if (startTime) {
+        const initialTime = parseInt(localStorage.getItem('timerInitialTime'));
+        
+        if (startTime && initialTime) {
             const elapsed = Math.floor((new Date().getTime() - startTime) / 1000);
-            const initialTime = this.isBreakTime ? this.pomodoroBreakTime * 60 : this.pomodoroWorkTime * 60;
             this.timeRemaining = Math.max(0, initialTime - elapsed);
             localStorage.setItem('timeRemaining', this.timeRemaining);
         }
@@ -408,6 +406,7 @@ class StudyTimer {
         
         localStorage.setItem('timerRunning', 'false');
         localStorage.removeItem('timerStartTime');
+        localStorage.removeItem('timerInitialTime');
         
         this.playBeep();
         this.sendNotification();
@@ -566,11 +565,12 @@ class StudyTimer {
     checkAndResumeTimer() {
         const wasRunning = localStorage.getItem('timerRunning') === 'true';
         const startTime = localStorage.getItem('timerStartTime');
+        const initialTime = localStorage.getItem('timerInitialTime');
         
-        if (wasRunning && startTime) {
+        if (wasRunning && startTime && initialTime) {
             // タイマーが実行中だった場合、経過時間を計算
             const elapsed = Math.floor((new Date().getTime() - parseInt(startTime)) / 1000);
-            this.timeRemaining = Math.max(0, this.timeRemaining - elapsed);
+            this.timeRemaining = Math.max(0, parseInt(initialTime) - elapsed);
             localStorage.setItem('timeRemaining', this.timeRemaining);
             
             if (this.timeRemaining > 0) {
