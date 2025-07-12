@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Favicon Generator</title>
+</head>
+<body>
+    <h2>Favicon Generator</h2>
+    <canvas id="canvas" width="64" height="64" style="border: 1px solid #ccc;"></canvas>
+    <br><br>
+    <button onclick="generateFavicon()">Generate Favicon</button>
+    <br><br>
+    <a id="downloadLink" style="display: none;">Download favicon.ico</a>
+
+    <script>
+        function generateFavicon() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, 64, 64);
+            
+            // Background circle
+            ctx.beginPath();
+            ctx.arc(32, 32, 30, 0, 2 * Math.PI);
+            ctx.fillStyle = '#753A88';
+            ctx.fill();
+            ctx.strokeStyle = '#5A2C6B';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Inner circle (clock face)
+            ctx.beginPath();
+            ctx.arc(32, 32, 24, 0, 2 * Math.PI);
+            ctx.fillStyle = '#F5F5F5';
+            ctx.fill();
+            ctx.strokeStyle = '#753A88';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Roman numerals
+            ctx.fillStyle = '#753A88';
+            ctx.font = 'bold 8px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('XII', 32, 16);
+            ctx.fillText('III', 48, 36);
+            ctx.fillText('VI', 32, 52);
+            ctx.fillText('IX', 16, 36);
+            
+            // Clock hands
+            ctx.strokeStyle = '#753A88';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            
+            // Hour hand (pointing to 12)
+            ctx.beginPath();
+            ctx.moveTo(32, 32);
+            ctx.lineTo(32, 20);
+            ctx.stroke();
+            
+            // Minute hand (pointing to 3)
+            ctx.beginPath();
+            ctx.moveTo(32, 32);
+            ctx.lineTo(40, 32);
+            ctx.stroke();
+            
+            // Center dot
+            ctx.beginPath();
+            ctx.arc(32, 32, 2, 0, 2 * Math.PI);
+            ctx.fillStyle = '#753A88';
+            ctx.fill();
+            
+            // Decorative ring
+            ctx.beginPath();
+            ctx.arc(32, 32, 26, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#D4AF37';
+            ctx.lineWidth = 1;
+            ctx.globalAlpha = 0.6;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+            
+            // Convert to blob and create download
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const link = document.getElementById('downloadLink');
+                link.href = url;
+                link.download = 'favicon.png';
+                link.style.display = 'block';
+                link.textContent = 'Download favicon.png';
+            });
+        }
+    </script>
+</body>
+</html>

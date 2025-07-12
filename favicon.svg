@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#753A88" stroke="#5A2C6B" stroke-width="2"/>
+  
+  <!-- Inner circle (clock face) -->
+  <circle cx="32" cy="32" r="24" fill="#F5F5F5" stroke="#753A88" stroke-width="2"/>
+  
+  <!-- Roman numerals -->
+  <text x="32" y="16" text-anchor="middle" font-family="serif" font-size="8" font-weight="bold" fill="#753A88">XII</text>
+  <text x="48" y="36" text-anchor="middle" font-family="serif" font-size="8" font-weight="bold" fill="#753A88">III</text>
+  <text x="32" y="52" text-anchor="middle" font-family="serif" font-size="8" font-weight="bold" fill="#753A88">VI</text>
+  <text x="16" y="36" text-anchor="middle" font-family="serif" font-size="8" font-weight="bold" fill="#753A88">IX</text>
+  
+  <!-- Clock hands -->
+  <line x1="32" y1="32" x2="32" y2="20" stroke="#753A88" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="32" x2="40" y2="32" stroke="#753A88" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Center dot -->
+  <circle cx="32" cy="32" r="2" fill="#753A88"/>
+  
+  <!-- Decorative elements (Roman style) -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.6"/>
+  <path d="M 32 8 L 34 12 L 30 12 Z" fill="#D4AF37"/>
+</svg>
