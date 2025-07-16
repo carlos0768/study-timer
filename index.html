@@ -20,6 +20,27 @@
         </header>
 
         <main>
+            <!-- タスク管理セクション -->
+            <div class="task-section" style="display: none;">
+                <h3>今日のタスク</h3>
+                <div class="current-task-display">
+                    <label for="current-task-select">現在のタスク:</label>
+                    <select id="current-task-select" class="task-select">
+                        <option value="">タスクを選択してください</option>
+                    </select>
+                </div>
+                <div class="task-progress">
+                    <span id="task-progress-text">0/0 タスク完了</span>
+                    <div class="progress-bar">
+                        <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+                <button id="get-advice-btn" class="btn btn-accent">皇帝の助言を求める</button>
+                <div id="emperor-advice" class="emperor-advice" style="display: none;">
+                    <div class="advice-content"></div>
+                </div>
+            </div>
+
             <div class="emperor-section">
                 <img id="emperor-image" src="./assets/emperors/default.webp" alt="ローマ皇帝" class="emperor-image" loading="eager" crossorigin="anonymous">
                 <h2 id="emperor-name" class="emperor-name"></h2>
@@ -112,6 +133,26 @@
 
     <div id="notification" class="notification"></div>
 
+    <!-- タスク入力モーダル -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <h2>今日のタスクを設定</h2>
+            <p class="modal-description">今日取り組むタスクを入力してください（最大10個）</p>
+            <div id="task-inputs" class="task-inputs">
+                <div class="task-input-item">
+                    <input type="text" class="task-input" placeholder="例: 数学の宿題を終わらせる">
+                </div>
+            </div>
+            <button id="add-task-input-btn" class="btn btn-small">+ タスクを追加</button>
+            <div class="modal-actions">
+                <button id="save-tasks-btn" class="btn btn-primary">タスクを保存</button>
+            </div>
+        </div>
+    </div>
+
     <script src="./app.js"></script>
+    <script src="./api-config.js"></script>
+    <script src="./emperor-ai.js"></script>
+    <script src="./task-manager.js"></script>
 </body>
 </html>
