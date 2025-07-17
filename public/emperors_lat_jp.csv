@@ -1,0 +1,17 @@
+id,name,quoteLatin,quoteJp,img
+1,Augustus,Festina lente.,ゆっくり急げ（急がば回れ）,https://upload.wikimedia.org/wikipedia/commons/e/eb/Statue-Augustus.jpg
+2,Tiberius,"Boni pastoris est tondere pecus, non deglubere.",良い羊飼いの務めは羊の毛を刈ることであり、皮を剥ぐことではない,https://upload.wikimedia.org/wikipedia/commons/a/ab/Tiberius_bust_from_Hercolaneum.jpg
+3,Caligula,"Oderint, dum metuant.",人々が憎もうとも、恐れてさえいればよい,https://upload.wikimedia.org/wikipedia/commons/6/65/Caligula_bust.jpg
+4,Claudius,Quod semper scis loquere; quod loqueris semper scias.,常に知っていることだけを語り、語ることは常に理解していよ,https://upload.wikimedia.org/wikipedia/commons/6/64/B%C3%BCsteClaudius.jpg
+5,Nero,Qualis artifex pereo!,なんと偉大な芸術家が滅びることか！,https://upload.wikimedia.org/wikipedia/commons/6/69/Bust_of_Nero_in_the_Musei_Capitolini.jpg
+6,Vespasian,Pecunia non olet.,金に臭いはない（お金に貴賤なし）,https://upload.wikimedia.org/wikipedia/commons/a/a9/Vespasian_Bust.jpg
+7,Trajan,"Si bene imperas, huic gladio utare; si male, in me.",善く統治するならこの剣を汝のために、悪く統治するなら私に向けよ,https://upload.wikimedia.org/wikipedia/commons/6/63/Bust_Trajan_Louvre_Ma1250.jpg
+8,Hadrian,"Animula vagula blandula, hospes comesque corporis...",さすらいの愛らしい小さな魂よ…,https://upload.wikimedia.org/wikipedia/commons/1/10/Portrait_bust_of_Hadrian%2C_Neues_Museum%2C_Berlin_%2813518987724%29.jpg
+9,Antoninus Pius,Malle se unum civem servare quam mille hostes occidere.,千人の敵を殺すより、一人の市民を救うほうが良い,https://upload.wikimedia.org/wikipedia/commons/e/e4/Antoninus_Pius_%28bust%29.jpg
+10,Marcus Aurelius,"Habes potestatem in animo tuo, non in rebus externis.",支配できるのは自分の心であって、外の出来事ではない,https://upload.wikimedia.org/wikipedia/commons/6/67/Marcus_Aurelius_%28bust%29.jpg
+11,Septimius Severus,"Concordes estote, milites, ditate; ceteros contemnite.",仲良くせよ、兵士を富ませよ、他は軽んじよ,https://upload.wikimedia.org/wikipedia/commons/7/71/Septimius_severus.jpg
+12,Constantine I,In hoc signo vinces.,この印において汝は勝たん,https://upload.wikimedia.org/wikipedia/commons/5/5d/Musei_Capitolini-statua_di_Costantino-testa-antmoose.jpg
+13,Galba,Capax imperii nisi imperasset.,統治せぬ限り帝位にふさわしかった,https://upload.wikimedia.org/wikipedia/commons/7/70/Stockholm_-_Antikengalerie_4_-_B%C3%BCste_Kaiser_Galba.jpg
+14,Titus,"Amici, diem perdidi.",友よ、私は今日という日を無駄にした,https://upload.wikimedia.org/wikipedia/commons/7/79/Titus_%28Capitoline_Museums%29.jpg
+15,Domitian,Dominus et Deus.,主にして神,https://upload.wikimedia.org/wikipedia/commons/f/f2/Domitian_bust%2C_Ma_1264_%28237%29.jpg
+16,Diocletian,Utinam Salonae olera nostris manibus instituta videres.,もし君がサロナで私が植えたキャベツを見たら、そんな誘いをする気にはならないだろう,https://upload.wikimedia.org/wikipedia/commons/8/86/Diocletian_Bueste.JPG

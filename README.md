@@ -1,77 +1,69 @@
-# ローマ皇帝と学ぶポモドーロタイマー
+# React + TypeScript + Vite
 
-16歳ローマオタク向けの学習タイマーアプリケーションです。推し皇帝の名言でモチベーションを維持しながら、ポモドーロテクニックで集中して勉強できます。
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 機能
+Currently, two official plugins are available:
 
-- **カウントダウンタイマー**: 任意の分数を設定可能
-- **ポモドーロタイマー**: 作業時間と休憩時間を手動設定（デフォルト: 25分-5分）
-- **皇帝画像＋名言**: 毎正時に自動切り替え（ラテン語原文と日本語訳）
-- **勉強ログ保存**: LocalStorageで日々の学習記録を保存
-- **通知機能**: ブラウザ通知とビープ音でタイマー終了をお知らせ
-- **PWA対応**: オフラインでも動作可能
-- **🆕 デイリータスク管理**: その日のタスクを設定し、進捗を管理
-- **🆕 ローマ皇帝AI助言**: OpenAI GPTを使用した、皇帝の性格に基づくアドバイス
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## セットアップ手順
+## Expanding the ESLint configuration
 
-### 1. 依存関係のインストール
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```bash
-npm install
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-### 2. 皇帝画像の準備
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-`emperors_lat_jp.csv`に記載されている皇帝の画像を`assets/emperors/`フォルダに配置してください。
-- ローカル画像の場合: WebP形式で保存
-- Wikipedia画像の場合: CSVのURLをそのまま使用
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-### 3. アプリケーションの起動
-
-```bash
-npm start
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-ブラウザで http://localhost:8080 にアクセスしてください。
-
-### 4. Vercel環境変数の設定（本番環境）
-
-Vercelダッシュボードで以下の環境変数を設定してください：
-
-- `OPENAI_API_KEY`: OpenAI APIキー（sk-で始まる文字列）
-
-設定方法：
-1. Vercelダッシュボードにログイン
-2. プロジェクトを選択
-3. Settings → Environment Variables
-4. `OPENAI_API_KEY`を追加
-5. 再デプロイ
-
-## 使い方
-
-1. **タスク設定**: 初回アクセス時に今日のタスクを入力（最大10個）
-2. **タスク選択**: ドロップダウンから現在取り組むタスクを選択
-3. **タイマー設定**: プリセットボタンまたはカスタム時間で設定
-4. **ポモドーロ設定**: 作業時間と休憩時間を入力して保存
-5. **開始**: 「開始」ボタンでタイマースタート
-6. **AI助言**: 「皇帝の助言を求める」ボタンでローマ皇帝からアドバイス
-7. **通知許可**: 初回アクセス時に通知を許可してください
-
-## 技術スタック
-
-- Vanilla JavaScript (ES6+)
-- Service Worker (PWA対応)
-- LocalStorage (データ永続化)
-- Web Notifications API
-- Web Audio API (ビープ音)
-
-## ブラウザ対応
-
-- Chrome/Edge (推奨)
-- Safari
-- Firefox
-
-## ライセンス
-
-MIT License

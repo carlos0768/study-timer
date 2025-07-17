@@ -1,158 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studium Aeternum</title>
-    <meta name="description" content="推し皇帝と一緒に勉強！ポモドーロタイマーで集中力アップ">
-    <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="./style.css">
-    <meta name="theme-color" content="#753A88">
-    <link rel="icon" type="image/webp" href="./SPQR_flag.webp">
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-    <link rel="icon" type="image/png" href="./favicon.png">
-    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Studium Aeternum</h1>
-        </header>
-
-        <main>
-            <!-- タスク管理セクション -->
-            <div class="task-section" style="display: none;">
-                <h3>今日のタスク</h3>
-                <div class="current-task-display">
-                    <label for="current-task-select">現在のタスク:</label>
-                    <select id="current-task-select" class="task-select">
-                        <option value="">タスクを選択してください</option>
-                    </select>
-                </div>
-                <div class="task-progress">
-                    <span id="task-progress-text">0/0 タスク完了</span>
-                    <div class="progress-bar">
-                        <div id="progress-bar-fill" class="progress-bar-fill"></div>
-                    </div>
-                </div>
-                <button id="get-advice-btn" class="btn btn-accent">皇帝の助言を求める</button>
-                <div id="emperor-advice" class="emperor-advice" style="display: none;">
-                    <div class="advice-content"></div>
-                </div>
-            </div>
-
-            <div class="emperor-section">
-                <img id="emperor-image" src="./assets/emperors/default.webp" alt="ローマ皇帝" class="emperor-image" loading="eager" crossorigin="anonymous">
-                <h2 id="emperor-name" class="emperor-name"></h2>
-                <blockquote class="emperor-quote">
-                    <p id="emperor-quote-latin" class="quote-latin"></p>
-                    <p id="emperor-quote-en" class="quote-en"></p>
-                    <p id="emperor-quote-jp" class="quote-jp"></p>
-                </blockquote>
-            </div>
-
-            <div class="timer-section">
-                <div class="timer-display">
-                    <span id="timer-minutes">25</span>
-                    <span class="timer-separator">:</span>
-                    <span id="timer-seconds">00</span>
-                </div>
-
-                <div class="timer-controls">
-                    <button id="start-btn" class="btn btn-primary">開始</button>
-                    <button id="pause-btn" class="btn btn-secondary" disabled>一時停止</button>
-                    <button id="reset-btn" class="btn btn-secondary">リセット</button>
-                </div>
-
-                <div class="timer-presets">
-                    <h3>タイマー設定</h3>
-                    <div class="preset-buttons">
-                        <button class="preset-btn" data-minutes="25">25分</button>
-                        <button class="preset-btn" data-minutes="5">5分</button>
-                        <button class="preset-btn" data-minutes="15">15分</button>
-                        <button class="preset-btn" data-minutes="30">30分</button>
-                    </div>
-                    <div class="custom-timer">
-                        <label for="custom-minutes">カスタム時間（分）：</label>
-                        <input type="number" id="custom-minutes" min="1" max="999" value="25">
-                        <button id="set-custom-btn" class="btn btn-small">設定</button>
-                    </div>
-                </div>
-
-                <div class="pomodoro-settings">
-                    <h3>ポモドーロ設定</h3>
-                    <div class="pomodoro-inputs">
-                        <div class="input-group">
-                            <label for="work-time">作業時間（分）：</label>
-                            <input type="number" id="work-time" min="1" max="99" value="25">
-                        </div>
-                        <div class="input-group">
-                            <label for="break-time">休憩時間（分）：</label>
-                            <input type="number" id="break-time" min="1" max="99" value="5">
-                        </div>
-                        <button id="save-pomodoro-btn" class="btn btn-small">保存</button>
-                    </div>
-                    <div class="pomodoro-status">
-                        <span id="pomodoro-mode">作業時間</span>
-                        <span id="pomodoro-count">セッション: 0</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stats-section">
-                <h3>今日の学習記録</h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-label">合計時間</span>
-                        <span id="total-time" class="stat-value">0分</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">完了セッション</span>
-                        <span id="completed-sessions" class="stat-value">0回</span>
-                    </div>
-                </div>
-                <div class="log-viewer">
-                    <h4>セッション履歴</h4>
-                    <ul id="session-log" class="session-log"></ul>
-                </div>
-                <div class="share-section">
-                    <button id="share-twitter-btn" class="btn btn-twitter">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                        学習記録をXで共有
-                    </button>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>&copy; 2023 ローマ皇帝と学ぶタイマー</p>
-        </footer>
-    </div>
-
-    <div id="notification" class="notification"></div>
-
-    <!-- タスク入力モーダル -->
-    <div id="task-modal" class="modal">
-        <div class="modal-content">
-            <h2>今日のタスクを設定</h2>
-            <p class="modal-description">今日取り組むタスクを入力してください（最大10個）</p>
-            <div id="task-inputs" class="task-inputs">
-                <div class="task-input-item">
-                    <input type="text" class="task-input" placeholder="例: 数学の宿題を終わらせる">
-                </div>
-            </div>
-            <button id="add-task-input-btn" class="btn btn-small">+ タスクを追加</button>
-            <div class="modal-actions">
-                <button id="save-tasks-btn" class="btn btn-primary">タスクを保存</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="./app.js"></script>
-    <script src="./api-config.js"></script>
-    <script src="./emperor-ai.js"></script>
-    <script src="./task-manager.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2196F3" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Study Timer</title>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => console.log('SW registered:', registration))
+            .catch(error => console.log('SW registration failed:', error));
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
