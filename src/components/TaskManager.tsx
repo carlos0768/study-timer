@@ -9,9 +9,6 @@ interface TaskManagerProps {
 const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
   const [newTaskLabel, setNewTaskLabel] = useState('')
   const [newTaskEstimate, setNewTaskEstimate] = useState(25)
-  const [showEmperorAdvice, setShowEmperorAdvice] = useState(false)
-  const [emperorAdvice, setEmperorAdvice] = useState('')
-  const [selectedEmperor, setSelectedEmperor] = useState('Marcus Aurelius')
 
   const addTask = () => {
     if (newTaskLabel.trim()) {
@@ -36,35 +33,6 @@ const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
 
   const deleteTask = (taskId: string) => {
     onTasksChange(tasks.filter(task => task.id !== taskId))
-  }
-
-  const requestEmperorAdvice = async () => {
-    setShowEmperorAdvice(true)
-    setEmperorAdvice('Connecting to Roman wisdom...')
-    
-    try {
-      const response = await fetch('/api/roman-emperor/advice', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          emperor_name: selectedEmperor,
-          today_tasks: tasks,
-          tone_adjustment: '厳格',
-          language: 'ja-lat'
-        })
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        setEmperorAdvice(data.choices[0].message.content)
-      } else {
-        setEmperorAdvice('The emperor is currently unavailable. Focus on your tasks with your own wisdom.')
-      }
-    } catch (error) {
-      setEmperorAdvice('The emperor is currently unavailable. Focus on your tasks with your own wisdom.')
-    }
   }
 
   const getStatusIcon = (status: Task['status']) => {
@@ -116,10 +84,10 @@ const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
               {task.status !== 'done' && (
                 <>
                   {task.status === 'todo' && (
-                    <button onClick={() => updateTaskStatus(task.id, 'in_progress')}>Start</button>
+                    <button className="task-start-btn" onClick={() => updateTaskStatus(task.id, 'in_progress')}>Start</button>
                   )}
                   {task.status === 'in_progress' && (
-                    <button onClick={() => updateTaskStatus(task.id, 'done')}>Done</button>
+                    <button className="task-done-btn" onClick={() => updateTaskStatus(task.id, 'done')}>Done</button>
                   )}
                 </>
               )}
@@ -129,37 +97,6 @@ const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
         ))}
       </div>
 
-      <div className="emperor-advice-section">
-        <div className="emperor-selector">
-          <select value={selectedEmperor} onChange={(e) => setSelectedEmperor(e.target.value)}>
-            <option value="Augustus">Augustus</option>
-            <option value="Marcus Aurelius">Marcus Aurelius</option>
-            <option value="Trajan">Trajan</option>
-            <option value="Hadrian">Hadrian</option>
-            <option value="Antoninus Pius">Antoninus Pius</option>
-            <option value="Nerva">Nerva</option>
-            <option value="Vespasian">Vespasian</option>
-            <option value="Titus">Titus</option>
-            <option value="Constantine">Constantine</option>
-            <option value="Diocletian">Diocletian</option>
-            <option value="Claudius">Claudius</option>
-            <option value="Theodosius">Theodosius</option>
-            <option value="Julian">Julian</option>
-            <option value="Septimius Severus">Septimius Severus</option>
-            <option value="Aurelian">Aurelian</option>
-            <option value="Valentinian">Valentinian</option>
-          </select>
-          <button className="btn btn-accent" onClick={requestEmperorAdvice}>
-            Get Emperor's Advice
-          </button>
-        </div>
-        
-        {showEmperorAdvice && (
-          <div className="emperor-advice-display">
-            <div dangerouslySetInnerHTML={{ __html: emperorAdvice.replace(/\n/g, '<br>') }} />
-          </div>
-        )}
-      </div>
     </div>
   )
 }

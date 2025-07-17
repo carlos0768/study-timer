@@ -12,6 +12,8 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [devMode, setDevMode] = useState(false)
+  const [selectedEmperorIndex, setSelectedEmperorIndex] = useState(0)
 
   useEffect(() => {
     loadEmperors()
@@ -19,21 +21,39 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const currentHour = new Date().getHours()
-      if (emperors.length > 0) {
-        const emperorIndex = currentHour % emperors.length
-        setCurrentEmperor(emperors[emperorIndex])
-      }
-    }, 1000)
+    if (!devMode) {
+      const intervalId = setInterval(() => {
+        const currentHour = new Date().getHours()
+        if (emperors.length > 0) {
+          const emperorIndex = currentHour % emperors.length
+          setCurrentEmperor(emperors[emperorIndex])
+        }
+      }, 1000)
 
-    return () => clearInterval(intervalId)
-  }, [emperors])
+      return () => clearInterval(intervalId)
+    }
+  }, [emperors, devMode])
+
+  useEffect(() => {
+    if (devMode && emperors.length > 0) {
+      setCurrentEmperor(emperors[selectedEmperorIndex])
+    }
+  }, [selectedEmperorIndex, emperors, devMode])
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        setDevMode(prev => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [])
 
   const loadEmperors = async () => {
     try {
       setLoading(true)
-      const response = await fetch('/emperors_lat_jp.csv')
+      const response = await fetch('/emperors_lat_jp_fixed.csv')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -77,8 +97,12 @@ function App() {
       
       setEmperors(emperorData)
       if (emperorData.length > 0) {
-        const currentHour = new Date().getHours()
-        setCurrentEmperor(emperorData[currentHour % emperorData.length])
+        if (!devMode) {
+          const currentHour = new Date().getHours()
+          setCurrentEmperor(emperorData[currentHour % emperorData.length])
+        } else {
+          setCurrentEmperor(emperorData[selectedEmperorIndex])
+        }
       }
       setLoading(false)
     } catch (error) {
@@ -128,35 +152,72 @@ function App() {
         <h1>Study Timer</h1>
       </header>
       
-      <main className="app-main">
-        {/* Emperor section first */}
+      <div className="app-container">
+        {/* Emperor sidebar - always visible */}
         {currentEmperor && (
-          <div className="emperor-section">
+          <aside className="emperor-sidebar">
             <EmperorDisplay emperor={currentEmperor} />
-          </div>
+            {devMode && (
+              <div className="dev-controls">
+                <h3>開発者モード</h3>
+                <div className="emperor-selector-dev">
+                  <button 
+                    onClick={() => setSelectedEmperorIndex((prev) => (prev - 1 + emperors.length) % emperors.length)}
+                    className="btn btn-secondary"
+                  >
+                    ← 前の皇帝
+                  </button>
+                  <span className="emperor-counter">
+                    {selectedEmperorIndex + 1} / {emperors.length}
+                  </span>
+                  <button 
+                    onClick={() => setSelectedEmperorIndex((prev) => (prev + 1) % emperors.length)}
+                    className="btn btn-secondary"
+                  >
+                    次の皇帝 →
+                  </button>
+                </div>
+                <select 
+                  value={selectedEmperorIndex} 
+                  onChange={(e) => setSelectedEmperorIndex(parseInt(e.target.value))}
+                  className="emperor-select-dev"
+                >
+                  {emperors.map((emperor, index) => (
+                    <option key={emperor.id} value={index}>
+                      {emperor.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </aside>
         )}
         
-        {/* Timer section second */}
-        <div className="timer-section">
-          <Timer 
-            mode={timerMode} 
-            onModeChange={setTimerMode}
-            hasActiveTasks={tasks.some(t => t.status === 'in_progress')}
-            currentTask={tasks.find(t => t.status === 'in_progress')}
-          />
-        </div>
-        
-        {error && (
-          <div style={{ color: 'red', padding: '1rem' }}>
-            {error}
+        {/* Main content area */}
+        <main className="app-main">
+          {/* Timer and tasks in view */}
+          <div className="content-wrapper">
+            <div className="timer-section">
+              <Timer 
+                mode={timerMode} 
+                onModeChange={setTimerMode}
+                hasActiveTasks={tasks.some(t => t.status === 'in_progress')}
+                currentTask={tasks.find(t => t.status === 'in_progress')}
+              />
+            </div>
+            
+            {error && (
+              <div style={{ color: 'red', padding: '1rem' }}>
+                {error}
+              </div>
+            )}
+            
+            <div className="tasks-section">
+              <TaskManager tasks={tasks} onTasksChange={saveTasks} />
+            </div>
           </div>
-        )}
-        
-        {/* Tasks section last */}
-        <div className="tasks-section">
-          <TaskManager tasks={tasks} onTasksChange={saveTasks} />
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   )
 }

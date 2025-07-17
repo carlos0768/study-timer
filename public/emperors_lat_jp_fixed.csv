@@ -1,0 +1,41 @@
+id,name,quoteLatin,quoteJp,img
+1,Augustus,Festina lente.,ゆっくり急げ（急がば回れ）,https://upload.wikimedia.org/wikipedia/commons/e/eb/Statue-Augustus.jpg
+2,Tiberius,"Boni pastoris est tondere pecus, non deglubere.",良い羊飼いの務めは羊の毛を刈ることであり、皮を剥ぐことではない,https://upload.wikimedia.org/wikipedia/commons/a/ab/Tiberius_bust_from_Hercolaneum.jpg
+3,Caligula,"Oderint, dum metuant.",人々が憎もうとも、恐れてさえいればよい,https://upload.wikimedia.org/wikipedia/commons/6/65/Caligula_bust.jpg
+4,Claudius,Quod semper scis loquere; quod loqueris semper scias.,常に知っていることだけを語り、語ることは常に理解していよ,https://upload.wikimedia.org/wikipedia/commons/6/64/B%C3%BCsteClaudius.jpg
+5,Nero,Qualis artifex pereo!,なんと偉大な芸術家が滅びることか！,https://upload.wikimedia.org/wikipedia/commons/6/69/Bust_of_Nero_in_the_Musei_Capitolini.jpg
+6,Vespasian,Pecunia non olet.,金に臭いはない（お金に貴賤なし）,https://upload.wikimedia.org/wikipedia/commons/a/a9/Vespasian_Bust.jpg
+7,Trajan,"Si bene imperas, huic gladio utare; si male, in me.",善く統治するならこの剣を汝のために、悪く統治するなら私に向けよ,https://upload.wikimedia.org/wikipedia/commons/6/63/Bust_Trajan_Louvre_Ma1250.jpg
+8,Hadrian,"Animula vagula blandula, hospes comesque corporis...",さすらいの愛らしい小さな魂よ…,https://upload.wikimedia.org/wikipedia/commons/b/b5/Hadrian%2C_Roman_emperor_117-38%2C_Ny_Carlsberg_Glyptotek%2C_Copenhagen_%2836023743600%29.jpg
+9,Antoninus Pius,Malle se unum civem servare quam mille hostes occidere.,千人の敵を殺すより、一人の市民を救うほうが良い,https://upload.wikimedia.org/wikipedia/commons/e/e4/Antoninus_Pius_%28bust%29.jpg
+10,Marcus Aurelius,"Habes potestatem in animo tuo, non in rebus externis.",支配できるのは自分の心であって、外の出来事ではない,https://upload.wikimedia.org/wikipedia/commons/6/67/Marcus_Aurelius_%28bust%29.jpg
+11,Septimius Severus,"Concordes estote, milites, ditate; ceteros contemnite.",仲良くせよ、兵士を富ませよ、他は軽んじよ,https://upload.wikimedia.org/wikipedia/commons/7/71/Septimius_severus.jpg
+12,Constantine I,In hoc signo vinces.,この印において汝は勝たん,https://upload.wikimedia.org/wikipedia/commons/5/5d/Musei_Capitolini-statua_di_Costantino-testa-antmoose.jpg
+13,Galba,Capax imperii nisi imperasset.,統治せぬ限り帝位にふさわしかった,https://upload.wikimedia.org/wikipedia/commons/7/70/Stockholm_-_Antikengalerie_4_-_B%C3%BCste_Kaiser_Galba.jpg
+14,Titus,"Amici, diem perdidi.",友よ、私は今日という日を無駄にした,https://upload.wikimedia.org/wikipedia/commons/7/79/Titus_%28Capitoline_Museums%29.jpg
+15,Domitian,Dominus et Deus.,主にして神,https://upload.wikimedia.org/wikipedia/commons/f/f2/Domitian_bust%2C_Ma_1264_%28237%29.jpg
+16,Diocletian,Utinam Salonae olera nostris manibus instituta videres.,もし君がサロナで私が植えたキャベツを見たら、そんな誘いをする気にはならないだろう,https://upload.wikimedia.org/wikipedia/commons/8/86/Diocletian_Bueste.JPG
+17,Julius Caesar,Experientia est omnium rerum magistra.,経験は万物の師である。,https://upload.wikimedia.org/wikipedia/commons/9/97/Bust_of_Julius_Caesar_British_Museum.jpg
+18,Marcus Aurelius,Perfer et obdura; dolor hic tibi proderit olim.,耐えよ、そして踏みとどまれ。この苦しみは、いつかお前の役に立つだろう。,https://upload.wikimedia.org/wikipedia/commons/6/67/Marcus_Aurelius_%28bust%29.jpg
+19,Seneca the Younger,Vincit qui patitur.,耐える者が勝利する。,https://upload.wikimedia.org/wikipedia/commons/e/e1/Pseudo-Seneca_MAN_Napoli_Inv_5616_n01.jpg
+20,Hannibal,Aut viam inveniam aut faciam.,道が見つからなければ、作ればいい。,https://upload.wikimedia.org/wikipedia/commons/6/67/Buste_Hannibal_Barca_%28cropped%29.jpg
+21,Tacitus,"Ratio et consilium, propriae ducis artes.",理性と判断力こそ、指導者固有の技能である。,https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cornelius_Tacitus_bearded_bust.jpg/482px-Cornelius_Tacitus_bearded_bust.jpg
+22,Appius Claudius Caecus,Faber est suae quisque fortunae.,各人が自らの運命の製作者である。,https://upload.wikimedia.org/wikipedia/commons/d/d8/Roman_Forum_in_Rome%2C_Italy_-_April_2007.jpg
+23,Marcus Aurelius,Omnem actionem tamquam vitae ultimam perfice.,すべての行為を、人生最後の行為であるかのように実行せよ。,https://upload.wikimedia.org/wikipedia/commons/c/ce/Marcus_Aurelius_Metropolitan_Museum.png
+24,Julius Caesar,"Sine disciplina, non est victoria.",訓練なくして、勝利なし。,https://upload.wikimedia.org/wikipedia/commons/9/97/Bust_of_Julius_Caesar_British_Museum.jpg
+25,Publilius Syrus,Vincit qui se vincit.,自らに打ち勝つ者が、勝利する。,https://upload.wikimedia.org/wikipedia/commons/2/28/Synopsis_of_the_senteces_%28Sententiae_-_Publilius_Syrus%29.PNG
+26,Seneca the Younger,"Non quia difficilia sunt non audemus, sed quia non audemus difficilia sunt.",物事が困難だから挑戦しないのではない。挑戦しないから、困難なのだ。,https://upload.wikimedia.org/wikipedia/commons/d/d5/Bust_of_Seneca_Wellcome_M0005621.jpg
+27,Pliny the Elder,Nulla dies sine linea.,線を引かぬ日はない（一日も怠るな）。,https://upload.wikimedia.org/wikipedia/commons/b/b3/Como_-_Dome_-_Facade_-_Plinius_the_Elder.jpg
+28,Virgil,Labor omnia vincit.,労働はすべてに打ち勝つ。,https://upload.wikimedia.org/wikipedia/commons/c/c8/Mosaic_in_the_Mus%C3%A9e_National_du_Bardo_in_Tunis_of_the_poet_Virgil_%283rd_century_AD%29.jpg
+29,Cicero,Salus populi suprema lex esto.,人民の安寧を最高の法とせよ。,https://upload.wikimedia.org/wikipedia/commons/4/40/Cicero_-_Musei_Capitolini.JPG
+30,Hadrian,"Quod tibi fieri non vis, alteri ne feceris.",己の欲せざるところ、人に施すことなかれ。,https://upload.wikimedia.org/wikipedia/commons/b/b5/Hadrian%2C_Roman_emperor_117-38%2C_Ny_Carlsberg_Glyptotek%2C_Copenhagen_%2836023743600%29.jpg
+31,Marcus Aurelius,Noli deesse tibi.,自分自身を見捨てるな。,https://upload.wikimedia.org/wikipedia/commons/e/e4/EAM_-_Bust_of_Marcus_Aurelius.jpg
+32,Seneca the Younger,Dum spiro spero.,息をする限り、私は希望を持つ。,https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bust_of_Seneca%2C_Summer_Garden%2C_St._Petersburg.jpg/800px-Bust_of_Seneca%2C_Summer_Garden%2C_St._Petersburg.jpg
+33,Horace,Nil volentibus arduum.,志ある者にとって、困難なことは何もない。,https://upload.wikimedia.org/wikipedia/commons/7/75/Horace.jpg
+34,Probus,"Brevi, si vita suppeditat, omnes milites divites faciam.",もし命が続くなら、私は間もなく全ての兵士を富ませるだろう。,https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Ancient_Roman_Coin_Depicting_Emperor_Probus.jpg/800px-Ancient_Roman_Coin_Depicting_Emperor_Probus.jpg
+35,Pliny the Younger,"Gloria enim lausque factorum egregiorum, non est præmium, sed umbra virtutis.",栄光とは、優れた行いへの報酬ではなく、ウィルトゥス（徳）の影なのである。,https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Pliny_the_Younger_bust_in_Como.jpg/800px-Pliny_the_Younger_bust_in_Como.jpg
+36,Marcus Aurelius,"In te ipso est fons boni, qui semper manare potest, si semper foderis.",善の泉は汝自身のうちにある。汝が常に掘り下げさえすれば、常に湧き出るだろう。,https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Bust_marcus_aurelius.jpg/504px-Bust_marcus_aurelius.jpg
+37,Julius Caesar,Malo hic primus esse quam Romae secundus.,ローマで二番目であるよりは、ここで一番でありたい。,https://upload.wikimedia.org/wikipedia/commons/9/97/Bust_of_Julius_Caesar_British_Museum.jpg
+38,Proverb,Perfer et obdura.,耐えよ、そして踏みとどまれ。,https://upload.wikimedia.org/wikipedia/commons/6/6c/Romersk-katolska_kapellet%2C_Norra_begravningsplatsen_04.jpg
+39,Hadrian,Libri mihi prima patria fuerunt.,私にとって最初の故郷は書物であった。,https://upload.wikimedia.org/wikipedia/commons/b/b5/Hadrian%2C_Roman_emperor_117-38%2C_Ny_Carlsberg_Glyptotek%2C_Copenhagen_%2836023743600%29.jpg
+40,Cicero,Stultum est timere quod vitare non potes.,避けることのできないものを恐れるのは愚かである。,https://upload.wikimedia.org/wikipedia/commons/4/40/Cicero_-_Musei_Capitolini.JPG

@@ -2,9 +2,36 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #0A0A0A;
+  overflow-x: hidden;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(20, 20, 20, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.3) rgba(20, 20, 20, 0.5);
 }
