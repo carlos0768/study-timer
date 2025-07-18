@@ -787,7 +787,7 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-height: 0;
+  min-height: 350px;
 }
 
 .task-manager {
@@ -800,7 +800,7 @@ body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-height: 0;
+  min-height: 300px;
 }
 
 .task-manager h2 {
