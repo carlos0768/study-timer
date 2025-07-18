@@ -11,9 +11,7 @@ interface EmperorAdviceProps {
 const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefreshInterval = 300 }) => {
   const [advice, setAdvice] = useState<string>('')
   const [loading, setLoading] = useState(false)
-  const [lastUpdate, setLastUpdate] = useState<Date | null>(null)
   const [showAdvice, setShowAdvice] = useState(false)
-  const [useOpenAI, setUseOpenAI] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const dragRef = useRef<HTMLDivElement>(null)
@@ -203,7 +201,6 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
   // システムプロンプトを構築
   const buildSystemPrompt = (emperor: Emperor): string => {
     const signature = getEmperorSignature(emperor.name)
-    const maxim = getEmperorMaxim(emperor.name)
     const fullLatinName = getFullLatinName(emperor.name)
     const japaneseEmperorName = getJapaneseEmperorName(emperor.name)
     
@@ -273,15 +270,12 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
         if (response.ok) {
           const data = await response.json()
           setAdvice(data.choices[0].message.content)
-          setUseOpenAI(true)
         } else {
           setAdvice(getRandomAdvice())
-          setUseOpenAI(false)
         }
       } catch (error) {
         console.error('OpenAI API error:', error)
         setAdvice(getRandomAdvice())
-        setUseOpenAI(false)
       }
     } else {
       // Use mock advice if no API key or no tasks
@@ -290,11 +284,9 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
           ? 'タスクを追加すると、皇帝からの助言が表示されます。' 
           : getRandomAdvice()
         setAdvice(newAdvice)
-        setUseOpenAI(false)
       }, 500)
     }
     
-    setLastUpdate(new Date())
     setLoading(false)
     setShowAdvice(true)
   }, [emperor, tasks])
