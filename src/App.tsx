@@ -3,6 +3,7 @@ import './App.css'
 import Timer from './components/Timer'
 import EmperorDisplay from './components/EmperorDisplay'
 import TaskManager from './components/TaskManager'
+import EmperorAdvice from './components/EmperorAdvice'
 import type { Emperor, Task, TimerMode } from './types'
 
 function App() {
@@ -203,8 +204,6 @@ function App() {
                 onModeChange={setTimerMode}
                 hasActiveTasks={tasks.some(t => t.status === 'in_progress')}
                 currentTask={tasks.find(t => t.status === 'in_progress')}
-                emperor={currentEmperor}
-                tasks={tasks}
               />
             </div>
             
@@ -220,6 +219,13 @@ function App() {
           </div>
         </main>
       </div>
+      
+      {/* Emperor advice floating at app level */}
+      {currentEmperor && tasks.length > 0 && (
+        <div className="emperor-advice-app-floating">
+          <EmperorAdvice emperor={currentEmperor} tasks={tasks} autoRefreshInterval={180} />
+        </div>
+      )}
     </div>
   )
 }

@@ -32,25 +32,29 @@ body {
   line-height: 1.6;
   font-weight: 300;
   letter-spacing: 0.02em;
+  overflow: hidden;
+  height: 100vh;
 }
 
 .app {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: var(--background-color);
+  overflow: hidden;
 }
 
 .app-header {
   background: var(--gradient-dark);
   border-bottom: 1px solid var(--border-color);
-  padding: 1.5rem 3rem;
+  padding: 1rem 2rem;
   backdrop-filter: blur(10px);
   position: relative;
   z-index: 100;
-  height: 80px;
+  height: 60px;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .app-header::after {
@@ -65,7 +69,7 @@ body {
 }
 
 .app-header h1 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 200;
   color: var(--text-primary);
   letter-spacing: 0.1em;
@@ -85,19 +89,17 @@ body {
 .emperor-sidebar {
   width: 380px;
   background: var(--surface-color);
-  border-right: 1px solid var(--border-color);
-  overflow-y: hidden;
-  overflow-x: hidden;
-  position: sticky;
-  top: 0;
-  height: calc(100vh - 80px);
+  border-right: none;
+  overflow: hidden;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 @media (max-width: 1200px) {
   .emperor-sidebar {
-    width: 350px;
+    width: 320px;
   }
 }
 
@@ -117,17 +119,23 @@ body {
 
 .app-main {
   flex: 1;
-  overflow-y: auto;
-  height: calc(100vh - 80px);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-elevated);
 }
 
 .content-wrapper {
-  padding: 2rem 3rem;
-  max-width: 900px;
+  padding: 2rem 4rem;
+  max-width: 1000px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -139,28 +147,22 @@ body {
 /* Timer Styles */
 .timer-section {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .timer {
-  background: var(--surface-elevated);
+  background: transparent;
   border-radius: var(--radius-large);
-  padding: 2.5rem;
-  box-shadow: var(--shadow-2);
-  border: 1px solid var(--border-color);
+  padding: 2rem;
+  box-shadow: none;
+  border: none;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  max-width: 600px;
 }
 
-.timer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--gradient-gold);
-  opacity: 0.8;
-}
 
 .timer-mode-selector {
   display: flex;
@@ -195,11 +197,11 @@ body {
 
 .timer-display {
   text-align: center;
-  margin: 2rem 0;
+  margin: 1rem 0;
 }
 
 .timer-display h2 {
-  font-size: 5rem;
+  font-size: 3rem;
   font-weight: 100;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
@@ -208,8 +210,8 @@ body {
 }
 
 .current-task-info {
-  margin-top: 2rem;
-  padding: 1.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
   background: var(--surface-color);
   border-radius: var(--radius);
   border: 1px solid var(--primary-color);
@@ -234,14 +236,14 @@ body {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .btn {
-  padding: 1rem 2.5rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   border-radius: var(--radius);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 400;
@@ -300,7 +302,7 @@ body {
 .dev-controls {
   background: var(--surface-elevated);
   border-top: 1px solid var(--border-color);
-  padding: 1.5rem;
+  padding: 1rem;
   margin-top: auto;
 }
 
@@ -526,43 +528,79 @@ body {
   background: rgba(212, 175, 55, 0.1);
 }
 
-/* Timer Emperor Advice Styles */
-.timer-emperor-advice {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-color);
+/* Emperor Advice App-Level Floating Styles */
+.emperor-advice-app-floating {
+  position: fixed;
+  top: 50%;
+  left: 30%;
+  width: auto;
+  z-index: 1000;
+  pointer-events: none;
 }
 
-.timer-emperor-advice .emperor-advice-section {
-  background: rgba(212, 175, 55, 0.05);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  padding: 1.5rem;
+.emperor-advice-compact {
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+  pointer-events: auto;
+  transition: box-shadow 0.2s;
+  user-select: none;
+  position: relative;
+  transform: translate(-50%, -50%);
+}
+
+.emperor-advice-compact.dragging {
+  box-shadow: 0 12px 48px rgba(212, 175, 55, 0.5);
+  opacity: 0.9;
+}
+
+.emperor-advice-compact .emperor-advice-content {
+  min-height: 40px;
+  transition: opacity 0.3s;
+}
+
+.emperor-advice-compact .emperor-advice-content.loading {
+  opacity: 0.6;
+}
+
+.emperor-advice-compact .advice-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.emperor-advice-compact .loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.emperor-advice-compact .advice-loading p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
   margin: 0;
-  box-shadow: none;
 }
 
-.timer-emperor-advice .advice-header h4 {
-  font-size: 1rem;
-  margin: 0;
-}
-
-.timer-emperor-advice .advice-text {
-  font-size: 1.1rem;
-  line-height: 1.6;
+.emperor-advice-compact .advice-text {
+  font-size: 0.75rem;
+  line-height: 1.3;
   color: var(--text-primary);
+  text-align: center;
 }
 
-.timer-emperor-advice .advice-text strong {
+.emperor-advice-compact .advice-text strong {
   color: var(--primary-color);
-  font-weight: 600;
+  font-size: 0.8rem;
   display: block;
-  margin-bottom: 0.5rem;
-}
-
-.timer-emperor-advice .advice-refresh-btn {
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  padding: 0.5rem 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .btn-tertiary {
@@ -631,14 +669,16 @@ body {
 .emperor-sidebar .emperor-display {
   background: transparent;
   border-radius: 0;
-  padding: 2rem 2rem 3rem 2rem;
+  padding: 1rem 1rem 1rem 1.5rem;
   box-shadow: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   border: none;
   justify-content: flex-start;
+  height: 100%;
+  position: relative;
 }
 
 .emperor-display::before {
@@ -654,8 +694,8 @@ body {
 
 
 .emperor-sidebar .emperor-image-container {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 50%;
@@ -683,7 +723,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center top;
 }
 
 .emperor-sidebar .emperor-info {
@@ -691,28 +731,27 @@ body {
   max-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  min-height: 300px;
+  gap: 0.75rem;
 }
 
 .emperor-name {
   font-size: 3rem;
   font-weight: 200;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   background: var(--gradient-gold);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  line-height: 1.2;
 }
 
 .emperor-quote {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  min-height: 200px;
+  gap: 0.5rem;
   justify-content: center;
 }
 
@@ -723,10 +762,11 @@ body {
   font-weight: 300;
   line-height: 1.5;
   letter-spacing: 0.02em;
-  min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 .quote-jp {
@@ -734,29 +774,39 @@ body {
   font-size: 1.1rem;
   line-height: 1.6;
   font-weight: 300;
-  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 /* Task Manager Styles */
 .tasks-section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
 .task-manager {
-  background: var(--surface-elevated);
+  background: transparent;
   border-radius: var(--radius-large);
-  padding: 3rem;
-  box-shadow: var(--shadow-2);
-  border: 1px solid var(--border-color);
+  padding: 1rem;
+  box-shadow: none;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
 .task-manager h2 {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 300;
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
   color: var(--text-primary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -803,14 +853,39 @@ body {
 }
 
 .task-list {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  max-height: 200px;
+}
+
+/* Hide scrollbar but keep functionality */
+.task-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.task-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+.task-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }
 
 .task-item {
   display: flex;
   align-items: center;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
   background: var(--surface-color);
   border-radius: var(--radius);
   border: 1px solid var(--border-color);
@@ -927,6 +1002,15 @@ body {
   background-color: #F44336;
   border-color: #F44336;
   color: white;
+}
+
+/* Task overflow note */
+.task-overflow-note {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 0.25rem;
+  font-style: italic;
 }
 
 /* Emperor Advice Styles */
