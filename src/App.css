@@ -154,7 +154,7 @@ body {
 .timer {
   background: transparent;
   border-radius: var(--radius-large);
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: none;
   border: none;
   position: relative;
@@ -167,7 +167,7 @@ body {
 .timer-mode-selector {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .mode-btn {
@@ -197,11 +197,11 @@ body {
 
 .timer-display {
   text-align: center;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 
 .timer-display h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 100;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
@@ -210,18 +210,20 @@ body {
 }
 
 .current-task-info {
-  margin-top: 1rem;
-  padding: 0.75rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
   background: var(--surface-color);
   border-radius: var(--radius);
   border: 1px solid var(--primary-color);
   border-left: 3px solid var(--primary-color);
+  font-size: 0.85rem;
 }
 
 .current-task-info p {
-  margin: 0.5rem 0;
+  margin: 0.25rem 0;
   color: var(--text-primary);
   font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .pomodoro-info {
