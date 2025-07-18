@@ -181,22 +181,6 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
     }))
   }
 
-  // 皇帝ごとの決まり文句
-  const getEmperorMaxim = (name: string): string => {
-    const maxims: Record<string, string> = {
-      'Julius Caesar': 'Alea iacta est!',
-      'Marcus Aurelius': 'τὰ εἰς ἑαυτόν.',
-      'Hadrian': 'Animus autem sine litteris mors est.',
-      'Seneca the Younger': 'Omnia aliena sunt, tempus tantum nostrum est.',
-      'Augustus': 'Festina lente.',
-      'Nero': 'Qualis artifex pereo!',
-      'Trajan': 'Felicior Augusto, melior Traiano.',
-      'Constantine': 'In hoc signo vinces.',
-      'Cicero': 'Cedant arma togae.',
-      'Virgil': 'Forsan et haec olim meminisse iuvabit.'
-    }
-    return maxims[name] || 'Memento mori.'
-  }
 
   // システムプロンプトを構築
   const buildSystemPrompt = (emperor: Emperor): string => {
