@@ -86,12 +86,13 @@ body {
   width: 380px;
   background: var(--surface-color);
   border-right: 1px solid var(--border-color);
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   position: sticky;
   top: 0;
   height: calc(100vh - 80px);
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1200px) {
@@ -300,7 +301,7 @@ body {
   background: var(--surface-elevated);
   border-top: 1px solid var(--border-color);
   padding: 1.5rem;
-  margin-top: 2rem;
+  margin-top: auto;
 }
 
 .dev-controls h3 {
@@ -353,6 +354,215 @@ body {
 .emperor-select-dev option {
   background: var(--surface-elevated);
   color: var(--text-primary);
+}
+
+/* Settings Modal Styles */
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.settings-modal {
+  background: var(--surface-elevated);
+  border-radius: var(--radius-large);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+  border: 1px solid var(--border-color);
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--gradient-dark);
+}
+
+.settings-header h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.3s;
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+}
+
+.close-btn:hover {
+  color: var(--primary-color);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.settings-content {
+  padding: 2rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 200px);
+}
+
+.setting-group {
+  margin-bottom: 2rem;
+}
+
+.setting-group label {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+}
+
+.api-key-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.api-key-input {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  background: var(--surface-color);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: monospace;
+  transition: all 0.3s;
+}
+
+.api-key-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.setting-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.setting-description a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.setting-description a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.api-key-status {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.api-key-status.valid {
+  color: #4CAF50;
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Settings Button in Header */
+.settings-btn {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.settings-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* Timer Emperor Advice Styles */
+.timer-emperor-advice {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.timer-emperor-advice .emperor-advice-section {
+  background: rgba(212, 175, 55, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 1.5rem;
+  margin: 0;
+  box-shadow: none;
+}
+
+.timer-emperor-advice .advice-header h4 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.timer-emperor-advice .advice-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.timer-emperor-advice .advice-text strong {
+  color: var(--primary-color);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.timer-emperor-advice .advice-refresh-btn {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
 }
 
 .btn-tertiary {
@@ -428,7 +638,6 @@ body {
   align-items: center;
   gap: 2rem;
   border: none;
-  min-height: calc(100vh - 160px);
   justify-content: flex-start;
 }
 
@@ -483,6 +692,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-height: 300px;
 }
 
 .emperor-name {
@@ -498,14 +708,25 @@ body {
   background-clip: text;
 }
 
+.emperor-quote {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 200px;
+  justify-content: center;
+}
+
 .quote-latin {
   font-style: italic;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
   font-size: 1.75rem;
   font-weight: 300;
   line-height: 1.5;
   letter-spacing: 0.02em;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .quote-jp {
@@ -513,6 +734,10 @@ body {
   font-size: 1.1rem;
   line-height: 1.6;
   font-weight: 300;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Task Manager Styles */
@@ -743,11 +968,12 @@ body {
 
 /* Emperor Advice Styles */
 .emperor-advice-section {
-  background: rgba(212,175,55,0.05);
-  border: 1px solid rgba(212,175,55,0.3);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 1.5rem;
-  margin-top: 1rem;
+  margin: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .advice-header {

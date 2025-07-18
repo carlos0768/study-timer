@@ -203,6 +203,8 @@ function App() {
                 onModeChange={setTimerMode}
                 hasActiveTasks={tasks.some(t => t.status === 'in_progress')}
                 currentTask={tasks.find(t => t.status === 'in_progress')}
+                emperor={currentEmperor}
+                tasks={tasks}
               />
             </div>
             

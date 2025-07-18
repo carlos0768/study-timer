@@ -1,14 +1,17 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { TimerMode, TimerSettings } from '../types'
+import type { TimerMode, TimerSettings, Emperor, Task } from '../types'
+import EmperorAdvice from './EmperorAdvice'
 
 interface TimerProps {
   mode: TimerMode
   onModeChange: (mode: TimerMode) => void
   hasActiveTasks: boolean
   currentTask?: { label: string; estimate_min: number }
+  emperor?: Emperor | null
+  tasks?: Task[]
 }
 
-const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, currentTask }) => {
+const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, currentTask, emperor, tasks = [] }) => {
   const [settings, setSettings] = useState<TimerSettings>({
     countdownMinutes: 25,
     pomodoroWorkMinutes: 25,
@@ -168,6 +171,12 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
           </div>
         )}
       </div>
+      
+      {emperor && (
+        <div className="timer-emperor-advice">
+          <EmperorAdvice emperor={emperor} tasks={tasks} />
+        </div>
+      )}
 
       <div className="timer-controls">
         {!isRunning ? (
