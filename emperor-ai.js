@@ -3,17 +3,160 @@ class EmperorAI {
     constructor() {
         this.rateLimiter = new RateLimiter();
         this.emperors = [
-            { id: 1, name: 'アウグストゥス', personality: '戦略的で慎重、「ゆっくり急げ」の精神' },
-            { id: 2, name: 'マルクス・アウレリウス', personality: 'ストイックで哲学的、内省的' },
-            { id: 3, name: 'トラヤヌス', personality: '行動的で励ましに満ち、実践的' },
-            { id: 4, name: 'ハドリアヌス', personality: '知的で文化的、完璧主義' },
-            { id: 5, name: 'アントニヌス・ピウス', personality: '穏やかで思慮深い、調和を重視' },
-            { id: 6, name: 'ユリウス・カエサル', personality: '野心的で大胆、リスクを恐れない' },
-            { id: 7, name: 'ウェスパシアヌス', personality: '実務的でユーモアがある、現実主義' },
-            { id: 8, name: 'ネルウァ', personality: '知恵と経験に富む、バランス感覚' },
-            { id: 9, name: 'ティトゥス', personality: '寛大で人望が厚い、楽観的' },
-            { id: 10, name: 'クラウディウス', personality: '学者肌で慎重、細部にこだわる' }
+            { 
+                id: 1, 
+                shortName: 'アウグストゥス', 
+                latinName: 'Imperator Caesar Augustus', 
+                jpName: 'アウグストゥス', 
+                personality: '戦略的で慎重、「ゆっくり急げ」の精神', 
+                background: 'ローマ帝国の基盤を築いた初代皇帝。行政改革と長期計画を重視。', 
+                famousQuotes: [
+                    { latin: 'Festina lente.', jp: 'ゆっくり急げ。', source: 'Attributed to Augustus' },
+                    { latin: 'Acta non verba.', jp: '言葉ではなく行動を。', source: 'Roman proverb, associated with Augustus' }
+                ] 
+            },
+            { 
+                id: 2, 
+                shortName: 'マルクス・アウレリウス', 
+                latinName: 'Marcus Aurelius Antoninus', 
+                jpName: 'マルクス・アウレリウス', 
+                personality: 'ストイックで哲学的、内省的', 
+                background: 'ストア派の哲学者皇帝。自省録を著し、内面的な強さを説く。', 
+                famousQuotes: [
+                    { latin: 'Quod obstat viae fit via.', jp: '道を阻むものが道となる。', source: 'Meditationes 5.20' },
+                    { latin: 'Habes potestatem in animo tuo.', jp: '支配できるのは自分の心だ。', source: 'Meditationes 12.3' }
+                ] 
+            },
+            { 
+                id: 3, 
+                shortName: 'トラヤヌス', 
+                latinName: 'Marcus Ulpius Traianus', 
+                jpName: 'トラヤヌス', 
+                personality: '行動的で励ましに満ち、実践的', 
+                background: '帝国を最大版図に導いた征服者。軍事と福祉を両立。', 
+                famousQuotes: [
+                    { latin: 'Optimus princeps.', jp: '最良の皇帝。', source: 'Senate title' },
+                    { latin: 'Fortes fortuna adiuvat.', jp: '運命は勇者を助ける。', source: 'Roman proverb, associated with Trajan' }
+                ] 
+            },
+            { 
+                id: 4, 
+                shortName: 'ハドリアヌス', 
+                latinName: 'Publius Aelius Hadrianus', 
+                jpName: 'ハドリアヌス', 
+                personality: '知的で文化的、完璧主義', 
+                background: '建築と文化を愛した皇帝。ハドリアヌスの長城を築く。', 
+                famousQuotes: [
+                    { latin: 'Animula vagula blandula.', jp: '小さな魂よ、さまようものよ。', source: 'Dying poem' },
+                    { latin: 'Ordo et methodus.', jp: '秩序と方法。', source: 'Attributed' }
+                ] 
+            },
+            { 
+                id: 5, 
+                shortName: 'アントニヌス・ピウス', 
+                latinName: 'Marcus Aurelius Antoninus', 
+                jpName: 'アントニヌス・ピウス', 
+                personality: '穏やかで思慮深い、調和を重視', 
+                background: '平和な統治で知られる皇帝。安定と公正を重んじる。', 
+                famousQuotes: [
+                    { latin: 'Aequitas et pax.', jp: '公正と平和。', source: 'Meditationes 12.3' },
+                    { latin: 'Prudentia regni.', jp: '王国を統治する賢明さ。', source: 'Meditationes 12.3' }
+                ] 
+            },
+            { 
+                id: 6, 
+                shortName: 'ユリウス・カエサル', 
+                latinName: 'Gaius Julius Caesar', 
+                jpName: 'ユリウス・カエサル', 
+                personality: '野心的で大胆、リスクを恐れない', 
+                background: 'ガリア征服者。ルビコン川を渡り、独裁官に。', 
+                famousQuotes: [
+                    { latin: 'Veni, vidi, vici.', jp: '来た、見た、勝った。', source: 'Dying poem' },
+                    { latin: 'Alea iacta est.', jp: '賽は投げられた。', source: 'Dying poem' }
+                ] 
+            },
+            { 
+                id: 7, 
+                shortName: 'ウェスパシアヌス', 
+                latinName: 'Marcus Ulpius Traianus', 
+                jpName: 'ウェスパシアヌス', 
+                personality: '実務的でユーモアがある、現実主義', 
+                background: '財政改革者。コロッセウム建設を始める。', 
+                famousQuotes: [
+                    { latin: 'Pecunia non olet.', jp: '金に臭いはない。', source: 'Meditationes 12.3' },
+                    { latin: 'Vae, puto deus fio.', jp: 'ああ、神になるのか。', source: 'Meditationes 12.3' }
+                ] 
+            },
+            { 
+                id: 8, 
+                shortName: 'ネルウァ', 
+                latinName: 'Marcus Ulpius Traianus', 
+                jpName: 'ネルウァ', 
+                personality: '知恵と経験に富む、バランス感覚', 
+                background: '短期間の皇帝だが、後継者選びで功績。', 
+                famousQuotes: [
+                    { latin: 'Sapientia et iustitia.', jp: '知恵と正義。', source: 'Meditationes 12.3' },
+                    { latin: 'Moderatio in omnibus.', jp: 'すべてに節制を。', source: 'Meditationes 12.3' }
+                ] 
+            },
+            { 
+                id: 9, 
+                shortName: 'ティトゥス', 
+                latinName: 'Marcus Ulpius Traianus', 
+                jpName: 'ティトゥス', 
+                personality: '寛大で人望が厚い、楽観的', 
+                background: 'ヴェスヴィオ火山噴火時の救済で知られる。', 
+                famousQuotes: [
+                    { latin: 'Amici, diem perdidi.', jp: '友人よ、私は一日を失った。', source: 'Meditationes 12.3' },
+                    { latin: 'Beneficia non obtruduntur.', jp: '恩恵は押し付けない。', source: 'Meditationes 12.3' }
+                ] 
+            },
+            { 
+                id: 10, 
+                shortName: 'クラウディウス', 
+                latinName: 'Marcus Ulpius Traianus', 
+                jpName: 'クラウディウス', 
+                personality: '学者肌で慎重、細部にこだわる', 
+                background: '歴史家皇帝。ブリタニア征服を指揮。', 
+                famousQuotes: [
+                    { latin: 'Historia magistra vitae.', jp: '歴史は人生の師。', source: 'Meditationes 12.3' },
+                    { latin: 'Cautela non nocet.', jp: '注意深さは害にならない。', source: 'Meditationes 12.3' }
+                ] 
+            }
         ];
+
+        this.fewShotSamples = {
+            'アウグストゥス': [
+                `**Festina lente.**\nゆっくり急げ。\n— Imperator Caesar Augustus / — アウグストゥス\n焦らず数学で土台を固めよ。残り3件は計画で制す。`
+            ],
+            'マルクス・アウレリウス': [
+                `**Vita brevis est; ars longa.**\n人生は短く、学べることは多い。\n— Marcus Aurelius Antoninus / — マルクス・アウレリウス\n数学を25分やり切り、残りは泰然と受け止めよ。`
+            ],
+            'トラヤヌス': [
+                `**Fortes fortuna adiuvat.**\n運命は勇者を助ける。\n— Marcus Ulpius Traianus / — トラヤヌス\n英語に全力で挑め！残り2件も勝利せよ、勇者よ。`
+            ],
+            'ハドリアヌス': [
+                `**Ordo et methodus.**\n秩序と方法。\n— Publius Aelius Hadrianus / — ハドリアヌス\n{current}を完璧に仕上げ、残りを文化的に繋げよ。`
+            ],
+            'アントニヌス・ピウス': [
+                `**Aequitas et pax.**\n公正と平和。\n— Marcus Aurelius Antoninus / — アントニヌス・ピウス\n{current}を穏やかに進め、残りを調和的に。`
+            ],
+            'ユリウス・カエサル': [
+                `**Veni, vidi, vici.**\n来た、見た、勝った。\n— Gaius Julius Caesar / — ユリウス・カエサル\n{current}を大胆に攻略せよ！残りも一気に！`
+            ],
+            'ウェスパシアヌス': [
+                `**Pecunia non olet.**\n金に臭いはない。\n— Marcus Ulpius Traianus / — ウェスパシアヌス\n{current}を実務的にこなし、残りをユーモアを持って。`
+            ],
+            'ネルウァ': [
+                `**Sapientia et iustitia.**\n知恵と正義。\n— Marcus Ulpius Traianus / — ネルウァ\n{current}をバランスよく、残りを経験で導け。`
+            ],
+            'ティトゥス': [
+                `**Amici, diem perdidi.**\n友人よ、私は一日を失った。\n— Marcus Ulpius Traianus / — ティトゥス\n{current}を寛大に取り組み、残りを楽観的に！`
+            ],
+            'クラウディウス': [
+                `**Historia magistra vitae.**\n歴史は人生の師。\n— Marcus Ulpius Traianus / — クラウディウス\n{current}を慎重に学び、残りを細かく分析せよ。`
+            ]
+        };
     }
 
     async getAdvice(tasksInfo) {
@@ -31,13 +174,13 @@ class EmperorAI {
             const prompt = this.generatePrompt(emperor, tasksInfo);
             
             // API呼び出し（Vercel関数を使用）
-            const response = await this.callVercelAPI(prompt);
+            const response = await this.callVercelAPI(prompt, prompt); // Pass prompt twice for taskContext
             
             // レート制限を記録
             this.rateLimiter.recordRequest();
             
             return {
-                emperor: emperor.name,
+                emperor: emperor.shortName,
                 advice: response,
                 timestamp: new Date().toISOString()
             };
@@ -55,45 +198,67 @@ class EmperorAI {
         const completed = tasksInfo.completedCount;
         const remaining = tasksInfo.remainingCount;
         const total = tasksInfo.totalCount;
-        
+
         let taskContext = `現在のタスク: ${current}\n`;
         taskContext += `進捗: ${completed}/${total} タスク完了\n`;
-        
         if (remaining > 0 && tasksInfo.remaining.length > 0) {
             const remainingTasks = tasksInfo.remaining
                 .filter(t => t.id !== tasksInfo.current?.id)
                 .slice(0, 3)
                 .map(t => t.text)
                 .join('、');
-            
             if (remainingTasks) {
                 taskContext += `残りのタスク例: ${remainingTasks}\n`;
             }
         }
 
-        return `あなたは古代ローマ皇帝の${emperor.name}です。
-性格: ${emperor.personality}
+        // タスク名をローマ風に変換
+        const romanize = (label) => {
+            const romanMap = {
+                '数学': 'Mathematica',
+                '英語': 'Lingua Anglica',
+                '歴史': 'Historia',
+                // 他のタスク名も追加可能
+            };
+            return romanMap[label] || label;
+        };
+        const currentRomanLabel = romanize(current);
 
-以下の状況で、16歳の学生に向けて助言をしてください：
-${taskContext}
+        const buildSystemPrompt = (emp) => `
+You are ${emp.latinName}, known as 「${emp.jpName}」 in Japanese.
+Speak in first‑person singular, dignified yet approachable.
 
-以下の点に注意してアドバイスしてください：
-1. ${emperor.name}の性格や歴史的な名言を反映した口調で
-2. 現在のタスクへの具体的な励ましやアドバイス
-3. 残りタスクがある場合は、それについても言及（「まだ〜が残っているぞ」以外の多様な表現で）
-4. 日本語で100文字以内
-5. 説教臭くならないよう、親しみやすく
+### Output format (MANDATORY)
+**<Latin quote>**
+<Japanese translation>
+— ${emp.latinName} / — ${emp.jpName}
+<Advice body in Japanese, ≤90文字>
 
-回答は助言の内容のみを返してください。`;
+### Content rules
+1. Use ONE real or plausible Latin maxim in the quote line.
+2. Mention current task 『${currentRomanLabel}』と remaining ${remaining} 件.
+3. Include ${emp.shortName}‑like viewpoint (e.g. Stoic self‑command, long‑range plan, etc.).
+4. Encourage action, avoid moralizing sermon.
+
+### Few‑shot
+` + (this.fewShotSamples[emp.shortName]?.join('\n') || '');
+
+        return buildSystemPrompt(emperor);
     }
 
-    async callVercelAPI(prompt) {
+    async callVercelAPI(systemPrompt, taskContext) {
+        const messages = [
+            { role: 'system', content: systemPrompt },
+            ...(this.fewShotSamples[emperor.shortName]?.map(c => ({ role: 'assistant', content: c })) || []),
+            { role: 'user', content: taskContext }
+        ];
+
         const response = await fetch('/api/emperor-advice', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ prompt })
+            body: JSON.stringify({ messages, max_tokens: 220 })
         });
 
         if (!response.ok) {
@@ -106,56 +271,25 @@ ${taskContext}
     }
 
     getFallbackAdvice(tasksInfo) {
-        const adviceTemplates = [
-            {
-                emperor: 'マルクス・アウレリウス',
-                templates: [
-                    '今この瞬間に集中することが、すべての始まりだ。{current}という目の前の課題に全力を注げ。',
-                    '困難は成長の機会。{current}を通じて、君はより強くなる。{remaining_note}',
-                    '自分にできることに集中せよ。{current}は君の支配下にある。一歩ずつ進めばよい。'
-                ]
-            },
-            {
-                emperor: 'アウグストゥス',
-                templates: [
-                    'ゆっくり急げ。{current}を着実に進めることが、最も速い道だ。{remaining_note}',
-                    '大きな成果も小さな一歩から。{current}という基礎をしっかり固めよ。',
-                    '計画的に進めよ。{current}を終えれば、次への道が開ける。{remaining_note}'
-                ]
-            },
-            {
-                emperor: 'トラヤヌス',
-                templates: [
-                    '素晴らしい！{current}に取り組む君の姿勢を讃える。この調子で進めよ！{remaining_note}',
-                    '行動こそが全て。{current}を始めた君は、すでに勝利への道を歩んでいる。',
-                    '勇気を持て！{current}は君の力を試す良い機会だ。必ず乗り越えられる！'
-                ]
-            }
-        ];
-
-        const emperorAdvice = adviceTemplates[Math.floor(Math.random() * adviceTemplates.length)];
-        const template = emperorAdvice.templates[Math.floor(Math.random() * emperorAdvice.templates.length)];
+        const emperor = this.emperors[Math.floor(Math.random() * this.emperors.length)];
+        const templates = this.fewShotSamples[emperor.shortName] || [];
+        const template = templates[Math.floor(Math.random() * templates.length)] || '**Fallback quote.**\nフォールバック。\n— ' + emperor.latinName + ' / — ' + emperor.jpName + '\nアドバイス本文';
         
         const current = tasksInfo.current ? tasksInfo.current.text : '勉強';
         const remaining = tasksInfo.remainingCount;
         
         let remainingNote = '';
         if (remaining > 1) {
-            const remainingPhrases = [
-                `残り${remaining}つの課題も、この調子で制覇しよう。`,
-                `あと${remaining}つの挑戦が待っているが、恐れることはない。`,
-                `他にも${remaining}つのタスクがあるが、一つずつ確実に。`,
-                `まだ道のりは続くが、着実に前進している。`
-            ];
-            remainingNote = remainingPhrases[Math.floor(Math.random() * remainingPhrases.length)];
+            remainingNote = `残り${remaining}件も、この調子で。`;
         }
         
         const advice = template
             .replace('{current}', current)
+            .replace('{remaining}', remaining.toString())
             .replace('{remaining_note}', remainingNote);
         
         return {
-            emperor: emperorAdvice.emperor,
+            emperor: emperor.shortName,
             advice: advice,
             timestamp: new Date().toISOString()
         };
@@ -186,7 +320,7 @@ ${taskContext}
         const advice = adviceList[Math.floor(Math.random() * adviceList.length)];
 
         return {
-            emperor: emperor.name,
+            emperor: emperor.shortName,
             advice: advice,
             timestamp: new Date().toISOString()
         };

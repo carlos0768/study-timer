@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Task } from '../types'
+// ラテン語変換・アイコン機能は廃止
 
 interface TaskManagerProps {
   tasks: Task[]

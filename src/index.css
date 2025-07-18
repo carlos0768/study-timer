@@ -35,3 +35,46 @@ body {
   scrollbar-width: thin;
   scrollbar-color: rgba(212, 175, 55, 0.3) rgba(20, 20, 20, 0.5);
 }
+
+/* Roman theme additions */
+.roman-heading, h1, h2 {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+}
+
+.laurel-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.4rem;
+  color: #2e8b57; /* 深い緑で可視化 */
+  filter: drop-shadow(0 0 1px rgba(0,0,0,.3));
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+}
+
+.task-index {
+  margin-right: 0.5rem;
+  font-family: 'Cinzel', serif;
+}
+
+.jp-label {
+  font-size: 0.85em;
+  color: #666;
+}
+
+.task-manager {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.95),
+    rgba(255,255,255,0.95) 10px,
+    rgba(240,240,240,0.95) 10px,
+    rgba(240,240,240,0.95) 20px
+  );
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  opacity: 0.96;
+}
