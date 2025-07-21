@@ -12,10 +12,14 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
   const [advice, setAdvice] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [showAdvice, setShowAdvice] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  // ドラッグ機能のためのステート
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const dragRef = useRef<HTMLDivElement>(null)
   const dragStartPos = useRef({ x: 0, y: 0 })
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const hasShownInitialAdvice = useRef(false)
 
   // Mock advice data for now (until backend is implemented)
   const mockAdvices = {
@@ -207,6 +211,20 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
 <Japanese translation> — ${japaneseEmperorName}`
   }
 
+  const showAdviceTemporarily = () => {
+    // Clear any existing timeout
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current)
+    }
+    
+    setIsVisible(true)
+    
+    // Auto hide after 3 minutes
+    hideTimeoutRef.current = setTimeout(() => {
+      setIsVisible(false)
+    }, 180000)
+  }
+
   const updateAdvice = useCallback(async () => {
     setLoading(true)
     
@@ -273,26 +291,52 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
     
     setLoading(false)
     setShowAdvice(true)
+    showAdviceTemporarily()
   }, [emperor, tasks])
 
-  // Initial load
+  // Initial load - only show once per day when first task is added
   useEffect(() => {
-    updateAdvice()
-  }, [updateAdvice])
+    if (tasks.length > 0 && !hasShownInitialAdvice.current) {
+      // Check if we've already shown advice today
+      const today = new Date().toDateString()
+      const lastShownDate = localStorage.getItem('emperor-advice-last-shown')
+      
+      if (lastShownDate !== today) {
+        const initialDelay = setTimeout(() => {
+          updateAdvice()
+          localStorage.setItem('emperor-advice-last-shown', today)
+          hasShownInitialAdvice.current = true
+        }, 3000) // Show first advice after 3 seconds
+        
+        return () => clearTimeout(initialDelay)
+      } else {
+        hasShownInitialAdvice.current = true
+      }
+    }
+  }, [tasks.length, updateAdvice])
 
-  // Auto refresh
+  // Auto refresh - show advice periodically but not too often
   useEffect(() => {
     const intervalId = setInterval(() => {
-      updateAdvice()
+      // Only show if not currently visible
+      if (!isVisible) {
+        updateAdvice()
+      }
     }, autoRefreshInterval * 1000)
 
     return () => clearInterval(intervalId)
-  }, [autoRefreshInterval, updateAdvice])
+  }, [autoRefreshInterval, updateAdvice, isVisible])
 
-  // Update when emperor changes
+  // Update when emperor changes - with delay
   useEffect(() => {
-    updateAdvice()
-  }, [emperor.name])
+    const changeDelay = setTimeout(() => {
+      if (!isVisible) {
+        updateAdvice()
+      }
+    }, 2000)
+    
+    return () => clearTimeout(changeDelay)
+  }, [emperor.name, isVisible])
 
   // Drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -327,32 +371,43 @@ const EmperorAdvice: React.FC<EmperorAdviceProps> = ({ emperor, tasks, autoRefre
     }
   }, [isDragging, handleMouseMove, handleMouseUp])
 
+  // Cleanup timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  if (!isVisible || !showAdvice) {
+    return null
+  }
+
   return (
     <div 
       ref={dragRef}
-      className={`emperor-advice-compact ${isDragging ? 'dragging' : ''}`}
+      className={`emperor-advice-compact ${isDragging ? 'dragging' : ''} ${isVisible ? 'fade-in' : 'fade-out'}`}
       style={{ 
         transform: `translate(${position.x}px, ${position.y}px)`,
         cursor: isDragging ? 'grabbing' : 'grab'
       }}
       onMouseDown={handleMouseDown}
-    >
+     >
       <div className={`emperor-advice-content ${loading ? 'loading' : ''}`}>
         {loading ? (
           <div className="advice-loading">
             <div className="loading-spinner"></div>
             <p>皇帝が思案中...</p>
           </div>
-        ) : showAdvice ? (
-          <div className="advice-text" dangerouslySetInnerHTML={{ 
+        ) : (
+          <div className="advice-text" dangerouslySetInnerHTML={{
             __html: advice
               .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
               .replace(/\n/g, '<br>')
-              .replace(/• /g, '• ')
           }} />
-        ) : null}
+        )}
       </div>
-      
     </div>
   )
 }

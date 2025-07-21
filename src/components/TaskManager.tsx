@@ -5,9 +5,10 @@ import type { Task } from '../types'
 interface TaskManagerProps {
   tasks: Task[]
   onTasksChange: (tasks: Task[]) => void
+  onTaskStart?: () => void
 }
 
-const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
+const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange, onTaskStart }) => {
   const [newTaskLabel, setNewTaskLabel] = useState('')
   const [newTaskEstimate, setNewTaskEstimate] = useState(25)
 
@@ -30,6 +31,11 @@ const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
       task.id === taskId ? { ...task, status } : task
     )
     onTasksChange(updatedTasks)
+    
+    // Auto-start timer when task is started
+    if (status === 'in_progress') {
+      onTaskStart?.()
+    }
   }
 
   const deleteTask = (taskId: string) => {
@@ -37,11 +43,8 @@ const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
   }
 
   const getStatusIcon = (status: Task['status']) => {
-    switch (status) {
-      case 'todo': return '○'
-      case 'in_progress': return '◐'
-      case 'done': return '●'
-    }
+    // CSSで装飾するためclass名のみ返す
+    return `status-dot ${status}`
   }
 
   const getStatusClass = (status: Task['status']) => {
@@ -72,23 +75,23 @@ const TaskManager: React.FC<TaskManagerProps> = ({ tasks, onTasksChange }) => {
           onChange={(e) => setNewTaskEstimate(parseInt(e.target.value) || 1)}
           placeholder="min"
         />
-        <button className="btn btn-primary" onClick={addTask}>Add</button>
+        <button className="btn btn-primary" onClick={addTask}>追加</button>
       </div>
 
       <div className="task-list">
         {tasks.map(task => (
           <div key={task.id} className={`task-item ${getStatusClass(task.status)}`}>
-            <span className="task-status-icon">{getStatusIcon(task.status)}</span>
+            <span className={getStatusIcon(task.status)}></span>
             <span className="task-label">{task.label}</span>
             <span className="task-estimate">{task.estimate_min}min</span>
             <div className="task-actions">
               {task.status !== 'done' && (
                 <>
                   {task.status === 'todo' && (
-                    <button className="task-start-btn" onClick={() => updateTaskStatus(task.id, 'in_progress')}>Start</button>
+                    <button className="task-start-btn" onClick={() => updateTaskStatus(task.id, 'in_progress')}>開始</button>
                   )}
                   {task.status === 'in_progress' && (
-                    <button className="task-done-btn" onClick={() => updateTaskStatus(task.id, 'done')}>Done</button>
+                    <button className="task-done-btn" onClick={() => updateTaskStatus(task.id, 'done')}>完了</button>
                   )}
                 </>
               )}

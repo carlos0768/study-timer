@@ -13,12 +13,9 @@ export interface Task {
   estimate_min: number
 }
 
-export type TimerMode = 'countdown' | 'pomodoro'
 
 export interface TimerSettings {
   countdownMinutes: number
-  pomodoroWorkMinutes: number
-  pomodoroBreakMinutes: number
 }
 
 export interface StudyLog {

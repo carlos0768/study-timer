@@ -14,7 +14,11 @@ const EmperorDisplay: React.FC<EmperorDisplayProps> = ({ emperor }) => {
     if (cleanImg.startsWith('http')) {
       return cleanImg
     }
-    return `/assets/emperors/${cleanImg}`
+    // If path already starts with /, use as-is
+    if (cleanImg.startsWith('/')) {
+      return cleanImg
+    }
+    return `/images/emperors/${cleanImg}`
   }
 
   const imageUrl = getImageUrl(emperor.img)

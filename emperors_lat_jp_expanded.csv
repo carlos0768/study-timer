@@ -1,0 +1,71 @@
+id,name,quoteLatin,quoteJp,img
+1,Marcus Aurelius,Quod tibi molestum est ne aliis facias.,自分が嫌だと思うことを他人にしてはならない。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+2,Marcus Aurelius,Mente regit corpus.,心が身体を支配する。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+3,Marcus Aurelius,Omnem actionem tamquam vitae ultimam perfice.,すべての行為を、人生最後の行為であるかのように実行せよ。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+4,Marcus Aurelius,In te ipso est fons boni qui semper manare potest.,善の泉は汝自身のうちにある。汝が常に掘り下げさえすれば、常に湧き出るだろう。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+5,Marcus Aurelius,Noli deesse tibi.,自分自身を見捨てるな。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+6,Marcus Aurelius,Disciplina est animae cibus.,規律は魂の食物である。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+7,Marcus Aurelius,Qui ignorat sese ignorat omnia.,自分を知らない者は、すべてを知らない。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+8,Marcus Aurelius,Quotidie disce aliquid novi.,毎日何か新しいことを学べ。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+9,Marcus Aurelius,Vera sapientia in silentio nascitur.,真の知恵は静寂の中に生まれる。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+10,Marcus Aurelius,Labor omnia vincit improbus.,不屈の努力はすべてに勝利する。,https://upload.wikimedia.org/wikipedia/commons/1/11/Marcus_Aurelius_marble_bust_%283x4_cropped%29.jpg
+11,Seneca the Younger,Vincit qui patitur.,耐える者が勝利する。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+12,Seneca the Younger,Non quia difficilia sunt non audemus sed quia non audemus difficilia sunt.,物事が困難だから挑戦しないのではない。挑戦しないから、困難なのだ。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+13,Seneca the Younger,Dum spiro spero.,息をする限り、私は希望を持つ。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+14,Seneca the Younger,Docendo discimus.,教えることによって私たちは学ぶ。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+15,Seneca the Younger,Errare humanum est perseverare autem diabolicum.,間違うことは人間的だが、固執することは悪魔的だ。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+16,Seneca the Younger,Omnis nova res molesta est.,すべての新しいことは困難である。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+17,Seneca the Younger,Studium sine labore vanum est.,努力なしの勉強は無駄である。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+18,Seneca the Younger,Gutta cavat lapidem non vi sed saepe cadendo.,水滴は力によってではなく、絶え間なく落ちることで石を穿つ。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+19,Seneca the Younger,Vitia sua nemo sine magistro discit.,誰も師なしに自らの欠点を学ぶことはできない。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+20,Seneca the Younger,Tempus edax rerum.,時は万物を食い尽くす。,https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg/120px-Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg
+21,Julius Caesar,Experientia docet optima magistra.,経験は最良の教師である。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+22,Julius Caesar,Malo hic primus esse quam Romae secundus.,ローマで二番目であるよりは、ここで一番でありたい。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+23,Julius Caesar,Sine disciplina non est victoria.,訓練なくして、勝利なし。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+24,Julius Caesar,Victoria pertinacibus est.,勝利は粘り強い者のものである。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+25,Julius Caesar,Fortuna audaces iuvat.,幸運は勇敢な者を助ける。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+26,Julius Caesar,Labor et constantia.,労働と忍耐。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+27,Julius Caesar,Audentes fortuna iuvat.,勇敢な者を運は助ける。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+28,Julius Caesar,Per aspera ad astra.,困難を通して星々へ。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+29,Julius Caesar,Acta non verba.,言葉ではなく行動を。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+30,Julius Caesar,Mens sana in corpore sano.,健全な精神は健全な身体に宿る。,https://upload.wikimedia.org/wikipedia/commons/f/fd/Arte_romana%2C_Busto_di_Giulio_Cesare%2C_da_un_originale_del_I_secolo_a.C.jpg
+31,Cicero,Salus populi suprema lex esto.,人民の安寧を最高の法とせよ。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+32,Cicero,Stultum est timere quod vitare non potes.,避けることのできないものを恐れるのは愚かである。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+33,Cicero,Vivendum est mihi tam diu quam diu possunt.,できる限り生きねばならない。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+34,Cicero,Non scholae sed vitae discimus.,学校のためではなく人生のために学ぶ。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+35,Cicero,Memoria est thesaurus omnium rerum.,記憶はすべてのものの宝庫である。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+36,Cicero,Consuetudo quasi altera natura.,習慣は第二の天性である。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+37,Cicero,Diligentia maximum etiam mediocris ingeni subsidium.,勤勉さは平凡な才能の最大の助けである。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+38,Cicero,Ignorantia legis neminem excusat.,法の無知は誰をも許さない。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+39,Cicero,Historia est testis temporum.,歴史は時代の証人である。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+40,Cicero,Sapientia est rerum divinarum et humanarum scientia.,知恵とは神的なものと人間的なものの知識である。,https://upload.wikimedia.org/wikipedia/commons/b/b6/M_M_T_Cicero.jpg
+41,Hadrian,Quod tibi fieri non vis alteri ne feceris.,己の欲せざるところ、人に施すことなかれ。,https://upload.wikimedia.org/wikipedia/commons/7/7e/Bust_Hadrian_Glyptothek_Cs102.jpg
+42,Hadrian,Libri mihi prima patria fuerunt.,私にとって最初の故郷は書物であった。,https://upload.wikimedia.org/wikipedia/commons/7/7e/Bust_Hadrian_Glyptothek_Cs102.jpg
+43,Hadrian,Studia adolescentiam alunt.,学問は青春を養う。,https://upload.wikimedia.org/wikipedia/commons/7/7e/Bust_Hadrian_Glyptothek_Cs102.jpg
+44,Hadrian,Animi cultus quasi quidam humanitatis cibus.,心の修養は人間性の食物のようなものである。,https://upload.wikimedia.org/wikipedia/commons/7/7e/Bust_Hadrian_Glyptothek_Cs102.jpg
+45,Hadrian,Diligentia maximi facienda est.,勤勉さを最も重要視すべきである。,https://upload.wikimedia.org/wikipedia/commons/7/7e/Bust_Hadrian_Glyptothek_Cs102.jpg
+46,Virgil,Labor omnia vincit.,労働はすべてに打ち勝つ。,https://upload.wikimedia.org/wikipedia/commons/9/97/Virgil_from_Convent_Maison_de_Dieu%2C_France.jpg
+47,Virgil,Audentes fortuna iuvat.,運は勇者を助ける。,https://upload.wikimedia.org/wikipedia/commons/9/97/Virgil_from_Convent_Maison_de_Dieu%2C_France.jpg
+48,Virgil,Amor vincit omnia.,愛はすべてに勝つ。,https://upload.wikimedia.org/wikipedia/commons/9/97/Virgil_from_Convent_Maison_de_Dieu%2C_France.jpg
+49,Virgil,Possunt quia posse videntur.,できると思う者にはできる。,https://upload.wikimedia.org/wikipedia/commons/9/97/Virgil_from_Convent_Maison_de_Dieu%2C_France.jpg
+50,Virgil,Fama volat.,うわさは飛ぶ。,https://upload.wikimedia.org/wikipedia/commons/9/97/Virgil_from_Convent_Maison_de_Dieu%2C_France.jpg
+51,Horace,Nil volentibus arduum.,志ある者にとって、困難なことは何もない。,https://upload.wikimedia.org/wikipedia/commons/7/7d/Quinto_Orazio_Flacco.png
+52,Horace,Carpe diem.,その日を摘め（今を生きよ）。,https://upload.wikimedia.org/wikipedia/commons/7/7d/Quinto_Orazio_Flacco.png
+53,Horace,Sapere aude.,敢えて賢くあれ。,https://upload.wikimedia.org/wikipedia/commons/7/7d/Quinto_Orazio_Flacco.png
+54,Horace,Dulce et decorum est pro patria mori.,祖国のために死ぬことは美しく名誉なことである。,https://upload.wikimedia.org/wikipedia/commons/7/7d/Quinto_Orazio_Flacco.png
+55,Horace,Aequam memento rebus in arduis servare mentem.,困難な時にも平静な心を保つことを忘れるな。,https://upload.wikimedia.org/wikipedia/commons/7/7d/Quinto_Orazio_Flacco.png
+56,Pliny the Elder,Nulla dies sine linea.,線を引かぬ日はない（一日も怠るな）。,https://upload.wikimedia.org/wikipedia/commons/e/e4/Pliny_the_Elder_-_Ny_Carlsberg_Glyptotek.jpg
+57,Pliny the Elder,Ex auditu.,聞くことから（学習は聞くことから始まる）。,https://upload.wikimedia.org/wikipedia/commons/e/e4/Pliny_the_Elder_-_Ny_Carlsberg_Glyptotek.jpg
+58,Pliny the Elder,Tempus edax rerum.,時はあらゆるものを食い尽くす。,https://upload.wikimedia.org/wikipedia/commons/e/e4/Pliny_the_Elder_-_Ny_Carlsberg_Glyptotek.jpg
+59,Tacitus,Ratio et consilium propriae ducis artes.,理性と判断力こそ、指導者固有の技能である。,https://upload.wikimedia.org/wikipedia/commons/9/9c/Roman_Marble_Bust_of_Emperor_Tacitus%2C_275-276_AD_%2828026024160%29.jpg
+60,Tacitus,Sine ira et studio.,怒りと偏見なしに。,https://upload.wikimedia.org/wikipedia/commons/9/9c/Roman_Marble_Bust_of_Emperor_Tacitus%2C_275-276_AD_%2828026024160%29.jpg
+61,Augustus,Festina lente.,ゆっくり急げ（急がば回れ）。,https://upload.wikimedia.org/wikipedia/commons/6/68/Statue-Augustus.jpg
+62,Augustus,Habes imperium; uter utatur?,権力を持つ者よ、誰がそれを使うのか？,https://upload.wikimedia.org/wikipedia/commons/6/68/Statue-Augustus.jpg
+63,Trajan,Optimus princeps.,最良の君主。,https://upload.wikimedia.org/wikipedia/commons/8/8a/Traianus_Glyptothek_Munich_72.jpg
+64,Trajan,Gloria exercitus Romani.,ローマ軍の栄光。,https://upload.wikimedia.org/wikipedia/commons/8/8a/Traianus_Glyptothek_Munich_72.jpg
+65,Publilius Syrus,Vincit qui se vincit.,自らに打ち勝つ者が、勝利する。,https://upload.wikimedia.org/wikipedia/commons/e/e3/Malum_consilium_est%2C_quod_mutari_potest._Publilius_Syrus%2C_85-43_AC_-_en.svg
+66,Publilius Syrus,Bis vincit qui se vincit in victoria.,勝利において自分を制する者は二度勝つ。,https://upload.wikimedia.org/wikipedia/commons/e/e3/Malum_consilium_est%2C_quod_mutari_potest._Publilius_Syrus%2C_85-43_AC_-_en.svg
+67,Publilius Syrus,Necessitas dat legem non ipsa accipit.,必要性は法を与えるが、法を受けることはない。,https://upload.wikimedia.org/wikipedia/commons/e/e3/Malum_consilium_est%2C_quod_mutari_potest._Publilius_Syrus%2C_85-43_AC_-_en.svg
+68,Appius Claudius Caecus,Faber est suae quisque fortunae.,各人が自らの運命の製作者である。,https://upload.wikimedia.org/wikipedia/commons/1/1f/Appio_Claudio_Cieco_in_Senato.jpg
+69,Probus,Brevi si vita suppeditat omnes milites divites faciam.,もし命が続くなら、私は間もなく全ての兵士を富ませるだろう。,https://upload.wikimedia.org/wikipedia/commons/b/b6/Emperor_Probus.jpg
+70,Pliny the Younger,Gloria enim lausque factorum egregiorum non est praemium sed umbra virtutis.,栄光とは、優れた行いへの報酬ではなく、徳の影なのである。,https://upload.wikimedia.org/wikipedia/commons/7/7c/Plinius_minor.jpg

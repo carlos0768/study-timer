@@ -1,24 +1,20 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { TimerMode, TimerSettings } from '../types'
+import type { TimerSettings } from '../types'
 
 interface TimerProps {
-  mode: TimerMode
-  onModeChange: (mode: TimerMode) => void
   hasActiveTasks: boolean
   currentTask?: { label: string; estimate_min: number }
+  autoStart?: boolean
+  onAutoStartConsumed?: () => void
 }
 
-const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, currentTask }) => {
+const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = false, onAutoStartConsumed }) => {
   const [settings, setSettings] = useState<TimerSettings>({
-    countdownMinutes: 25,
-    pomodoroWorkMinutes: 25,
-    pomodoroBreakMinutes: 5
+    countdownMinutes: 25
   })
   
   const [timeLeft, setTimeLeft] = useState(settings.countdownMinutes * 60)
   const [isRunning, setIsRunning] = useState(false)
-  const [isBreak, setIsBreak] = useState(false)
-  const [pomodoroCount, setPomodoroCount] = useState(0)
 
   const playBeep = () => {
     try {
@@ -36,7 +32,7 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
   const showNotification = () => {
     if ('Notification' in window && Notification.permission === 'granted') {
       new Notification('Timer Complete!', {
-        body: mode === 'pomodoro' && isBreak ? 'Time for a break!' : 'Great job! Keep it up!',
+        body: 'Great job! Keep it up!',
         icon: '/favicon.ico'
       })
     }
@@ -57,31 +53,24 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
   const handleTimerComplete = useCallback(() => {
     playBeep()
     showNotification()
-    
-    if (mode === 'pomodoro') {
-      if (isBreak) {
-        setTimeLeft(settings.pomodoroWorkMinutes * 60)
-        setIsBreak(false)
-      } else {
-        setPomodoroCount(prev => prev + 1)
-        setTimeLeft(settings.pomodoroBreakMinutes * 60)
-        setIsBreak(true)
-      }
-    } else {
-      setIsRunning(false)
-      saveStudyLog(settings.countdownMinutes)
-    }
-  }, [mode, isBreak, settings])
+    setIsRunning(false)
+    saveStudyLog(settings.countdownMinutes)
+  }, [settings])
 
   useEffect(() => {
-    if (mode === 'countdown') {
-      setTimeLeft(settings.countdownMinutes * 60)
-      setIsBreak(false)
-    } else {
-      setTimeLeft(settings.pomodoroWorkMinutes * 60)
-      setIsBreak(false)
+    setTimeLeft(settings.countdownMinutes * 60)
+  }, [settings])
+
+  // Auto-start effect
+  useEffect(() => {
+    if (autoStart && hasActiveTasks && !isRunning) {
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission()
+      }
+      setIsRunning(true)
+      onAutoStartConsumed?.()
     }
-  }, [mode, settings])
+  }, [autoStart, hasActiveTasks, isRunning, onAutoStartConsumed])
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null
@@ -107,10 +96,6 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
   }
 
   const handleStart = () => {
-    if (!hasActiveTasks) {
-      alert('タスクを追加して「Start」をクリックしてください')
-      return
-    }
     if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission()
     }
@@ -123,13 +108,7 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
 
   const handleReset = () => {
     setIsRunning(false)
-    if (mode === 'countdown') {
-      setTimeLeft(settings.countdownMinutes * 60)
-    } else {
-      setTimeLeft(settings.pomodoroWorkMinutes * 60)
-      setIsBreak(false)
-      setPomodoroCount(0)
-    }
+    setTimeLeft(settings.countdownMinutes * 60)
   }
 
   const updateSettings = (key: keyof TimerSettings, value: number) => {
@@ -138,20 +117,6 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
 
   return (
     <div className="timer">
-      <div className="timer-mode-selector">
-        <button 
-          className={`mode-btn ${mode === 'countdown' ? 'active' : ''}`}
-          onClick={() => onModeChange('countdown')}
-        >
-          Countdown
-        </button>
-        <button 
-          className={`mode-btn ${mode === 'pomodoro' ? 'active' : ''}`}
-          onClick={() => onModeChange('pomodoro')}
-        >
-          Pomodoro
-        </button>
-      </div>
 
       <div className="timer-display">
         <h2>{formatTime(timeLeft)}</h2>
@@ -159,12 +124,6 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
           <div className="current-task-info">
             <p>現在のタスク: {currentTask.label}</p>
             <p>予定時間: {currentTask.estimate_min}分</p>
-          </div>
-        )}
-        {mode === 'pomodoro' && (
-          <div className="pomodoro-info">
-            <span>{isBreak ? 'Break Time' : 'Work Time'}</span>
-            <span>Session: {pomodoroCount}</span>
           </div>
         )}
       </div>
@@ -176,7 +135,7 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
             onClick={handleStart}
             disabled={!hasActiveTasks}
           >
-            {hasActiveTasks ? 'Start' : 'タスクを選択してください'}
+            {hasActiveTasks ? 'Timer Start' : 'タスクを「Start」で開始してください'}
           </button>
         ) : (
           <button className="btn btn-secondary" onClick={handleStop}>Pause</button>
@@ -184,45 +143,18 @@ const Timer: React.FC<TimerProps> = ({ mode, onModeChange, hasActiveTasks, curre
         <button className="btn btn-tertiary" onClick={handleReset}>Reset</button>
       </div>
 
-      {!isRunning && (
-        <div className="timer-settings">
-          {mode === 'countdown' ? (
-            <div className="setting-group">
-              <label>Minutes:</label>
-              <input
-                type="number"
-                min="1"
-                max="180"
-                value={settings.countdownMinutes}
-                onChange={(e) => updateSettings('countdownMinutes', parseInt(e.target.value) || 1)}
-              />
-            </div>
-          ) : (
-            <>
-              <div className="setting-group">
-                <label>Work:</label>
-                <input
-                  type="number"
-                  min="1"
-                  max="60"
-                  value={settings.pomodoroWorkMinutes}
-                  onChange={(e) => updateSettings('pomodoroWorkMinutes', parseInt(e.target.value) || 1)}
-                />
-              </div>
-              <div className="setting-group">
-                <label>Break:</label>
-                <input
-                  type="number"
-                  min="1"
-                  max="30"
-                  value={settings.pomodoroBreakMinutes}
-                  onChange={(e) => updateSettings('pomodoroBreakMinutes', parseInt(e.target.value) || 1)}
-                />
-              </div>
-            </>
-          )}
+      <div className={`timer-settings ${isRunning ? 'collapsed' : ''}`}>
+        <div className="setting-group">
+          <label>Minutes:</label>
+          <input
+            type="number"
+            min="1"
+            max="180"
+            value={settings.countdownMinutes}
+            onChange={(e) => updateSettings('countdownMinutes', parseInt(e.target.value) || 1)}
+          />
         </div>
-      )}
+      </div>
     </div>
   )
 }
