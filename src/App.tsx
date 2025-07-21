@@ -138,6 +138,19 @@ function App() {
       <div className="app">
         <div style={{ padding: '2rem', textAlign: 'center' }}>
           <h2>Loading...</h2>
+          <p>Loading emperors data...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="app">
+        <div style={{ padding: '2rem', textAlign: 'center', color: 'red' }}>
+          <h2>Error</h2>
+          <p>{error}</p>
+          <button onClick={() => { setError(null); loadEmperors(); }}>Retry</button>
         </div>
       </div>
     )
