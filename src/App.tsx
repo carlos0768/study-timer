@@ -4,10 +4,9 @@ import Timer from './components/Timer'
 import EmperorDisplay from './components/EmperorDisplay'
 import TaskManager from './components/TaskManager'
 import EmperorAdvice from './components/EmperorAdvice'
-import type { Emperor, Task, TimerMode } from './types'
+import type { Emperor, Task } from './types'
 
 function App() {
-  const [timerMode, setTimerMode] = useState<TimerMode>('countdown')
   const [currentEmperor, setCurrentEmperor] = useState<Emperor | null>(null)
   const [emperors, setEmperors] = useState<Emperor[]>([])
   const [tasks, setTasks] = useState<Task[]>([])
@@ -15,6 +14,7 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [devMode, setDevMode] = useState(false)
   const [selectedEmperorIndex, setSelectedEmperorIndex] = useState(0)
+  const [autoStartTimer, setAutoStartTimer] = useState(false)
 
   useEffect(() => {
     loadEmperors()
@@ -54,7 +54,7 @@ function App() {
   const loadEmperors = async () => {
     try {
       setLoading(true)
-      const response = await fetch('/emperors_lat_jp_fixed.csv')
+      const response = await fetch('/emperors_lat_jp_local.csv')
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -150,7 +150,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Study Timer</h1>
+        <h1>Studium Aeternum</h1>
       </header>
       
       <div className="app-container">
@@ -200,10 +200,10 @@ function App() {
           <div className="content-wrapper">
             <div className="timer-section">
               <Timer 
-                mode={timerMode} 
-                onModeChange={setTimerMode}
-                hasActiveTasks={tasks.some(t => t.status === 'in_progress')}
-                currentTask={tasks.find(t => t.status === 'in_progress')}
+                hasActiveTasks={tasks.length > 0}
+                currentTask={tasks.find(t => t.status === 'in_progress') || undefined}
+                autoStart={autoStartTimer}
+                onAutoStartConsumed={() => setAutoStartTimer(false)}
               />
             </div>
             
@@ -214,18 +214,21 @@ function App() {
             )}
             
             <div className="tasks-section">
-              <TaskManager tasks={tasks} onTasksChange={saveTasks} />
+              <TaskManager 
+                tasks={tasks} 
+                onTasksChange={saveTasks} 
+                onTaskStart={() => setAutoStartTimer(true)}
+              />
             </div>
           </div>
         </main>
+        {currentEmperor && tasks.length > 0 && (
+          <div className="emperor-advice-app-floating">
+            <EmperorAdvice emperor={currentEmperor} tasks={tasks} trigger={false} onDismiss={() => {}} autoRefreshInterval={900} />
+          </div>
+        )}
       </div>
       
-      {/* Emperor advice floating at app level */}
-      {currentEmperor && tasks.length > 0 && (
-        <div className="emperor-advice-app-floating">
-          <EmperorAdvice emperor={currentEmperor} tasks={tasks} autoRefreshInterval={180} />
-        </div>
-      )}
     </div>
   )
 }
