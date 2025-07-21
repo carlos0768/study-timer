@@ -224,7 +224,7 @@ function App() {
         </main>
         {currentEmperor && tasks.length > 0 && (
           <div className="emperor-advice-app-floating">
-            <EmperorAdvice emperor={currentEmperor} tasks={tasks} trigger={false} onDismiss={() => {}} autoRefreshInterval={900} />
+            <EmperorAdvice emperor={currentEmperor} tasks={tasks} autoRefreshInterval={900} />
           </div>
         )}
       </div>
