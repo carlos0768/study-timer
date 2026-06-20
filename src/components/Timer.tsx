@@ -13,7 +13,7 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
     countdownMinutes: 25
   })
   
-  const [timeLeft, setTimeLeft] = useState(settings.countdownMinutes * 60)
+  const [timeLeft, setTimeLeft] = useState(() => settings.countdownMinutes * 60)
   const [isRunning, setIsRunning] = useState(false)
 
   const playBeep = () => {
@@ -58,8 +58,10 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
   }, [settings])
 
   useEffect(() => {
-    setTimeLeft(settings.countdownMinutes * 60)
-  }, [settings])
+    if (!isRunning) {
+      setTimeLeft(settings.countdownMinutes * 60)
+    }
+  }, [settings.countdownMinutes])
 
   // Auto-start effect
   useEffect(() => {
@@ -113,6 +115,9 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
 
   const updateSettings = (key: keyof TimerSettings, value: number) => {
     setSettings(prev => ({ ...prev, [key]: value }))
+    if (key === 'countdownMinutes' && !isRunning) {
+      setTimeLeft(value * 60)
+    }
   }
 
   return (
