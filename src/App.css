@@ -80,6 +80,16 @@ body {
   background-clip: text;
 }
 
+.header-actions {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .app-container {
   flex: 1;
   display: flex;
@@ -1195,4 +1205,243 @@ body {
   color: var(--primary-color);
   font-weight: 500;
   text-shadow: 0 0 20px rgba(212,175,55,0.3);
+}
+
+/* BGM Player Styles */
+.bgm-player {
+  position: relative;
+}
+
+.bgm-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+}
+
+.bgm-toggle-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.bgm-toggle-btn.playing {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.bgm-toggle-btn.playing .bgm-icon {
+  animation: bgmPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes bgmPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.bgm-now-playing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  box-shadow: 0 0 6px var(--primary-color);
+}
+
+.bgm-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+  z-index: 200;
+  overflow: hidden;
+  animation: bgmSlideDown 0.2s ease-out;
+}
+
+@keyframes bgmSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bgm-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--gradient-dark);
+}
+
+.bgm-panel-header span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.bgm-stop-btn {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.bgm-stop-btn:hover {
+  border-color: #F44336;
+  color: #F44336;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.bgm-track-list {
+  padding: 0.5rem;
+}
+
+.bgm-track-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.bgm-track-item:hover {
+  background: var(--surface-color);
+  border-color: var(--border-light);
+  color: var(--text-primary);
+}
+
+.bgm-track-item.active {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.bgm-track-icon {
+  font-size: 0.7rem;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.bgm-track-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bgm-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--surface-color);
+}
+
+.bgm-play-btn {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.bgm-play-btn:hover {
+  background: var(--primary-color);
+  color: var(--background-color);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.bgm-volume {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.bgm-volume-icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.bgm-volume-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border-color);
+  outline: none;
+  cursor: pointer;
+}
+
+.bgm-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
+  transition: transform 0.2s;
+}
+
+.bgm-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.bgm-volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
 }

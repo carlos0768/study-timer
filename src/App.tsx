@@ -4,6 +4,7 @@ import Timer from './components/Timer'
 import EmperorDisplay from './components/EmperorDisplay'
 import TaskManager from './components/TaskManager'
 import EmperorAdvice from './components/EmperorAdvice'
+import BgmPlayer from './components/BgmPlayer'
 import type { Emperor, Task } from './types'
 
 function App() {
@@ -164,6 +165,9 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Studium Aeternum</h1>
+        <div className="header-actions">
+          <BgmPlayer />
+        </div>
       </header>
       
       <div className="app-container">

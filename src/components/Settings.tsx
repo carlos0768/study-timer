@@ -11,15 +11,13 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose }) => {
   const [isTesting, setIsTesting] = useState(false)
 
   useEffect(() => {
-    // First check environment variable
-    const envKey = import.meta.env.VITE_OPENAI_API_KEY
+    const envKey = import.meta.env.VITE_CLAUDE_API_KEY
     if (envKey && envKey !== 'your-api-key-here') {
       setApiKey(envKey)
       setIsApiKeyValid(true)
-      localStorage.setItem('openai-api-key', envKey)
+      localStorage.setItem('claude-api-key', envKey)
     } else {
-      // Then check localStorage
-      const savedKey = localStorage.getItem('openai-api-key')
+      const savedKey = localStorage.getItem('claude-api-key')
       if (savedKey) {
         setApiKey(savedKey)
         setIsApiKeyValid(true)
@@ -29,7 +27,7 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose }) => {
 
   const handleSaveApiKey = () => {
     if (apiKey.trim()) {
-      localStorage.setItem('openai-api-key', apiKey.trim())
+      localStorage.setItem('claude-api-key', apiKey.trim())
       setIsApiKeyValid(true)
     }
   }
@@ -39,15 +37,24 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose }) => {
 
     setIsTesting(true)
     try {
-      const response = await fetch('https://api.openai.com/v1/models', {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
         headers: {
-          'Authorization': `Bearer ${apiKey.trim()}`
-        }
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey.trim(),
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 16,
+          messages: [{ role: 'user', content: 'Say "OK"' }]
+        })
       })
-      
+
       if (response.ok) {
         setIsApiKeyValid(true)
-        localStorage.setItem('openai-api-key', apiKey.trim())
+        localStorage.setItem('claude-api-key', apiKey.trim())
         alert('APIキーが正常に検証されました！')
       } else {
         setIsApiKeyValid(false)
@@ -70,20 +77,20 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose }) => {
           <h2>設定</h2>
           <button className="close-btn" onClick={onClose}>×</button>
         </div>
-        
+
         <div className="settings-content">
           <div className="setting-group">
-            <label htmlFor="api-key">OpenAI APIキー</label>
+            <label htmlFor="api-key">Claude APIキー</label>
             <div className="api-key-input-group">
               <input
                 id="api-key"
                 type="password"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
-                placeholder="sk-..."
+                placeholder="sk-ant-..."
                 className="api-key-input"
               />
-              <button 
+              <button
                 className="btn btn-secondary"
                 onClick={handleTestApiKey}
                 disabled={isTesting || !apiKey.trim()}
@@ -92,15 +99,15 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose }) => {
               </button>
             </div>
             <p className="setting-description">
-              OpenAI APIキーを入力してください。キーは<a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">OpenAI Dashboard</a>から取得できます。
+              Claude APIキーを入力してください。キーは<a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">Anthropic Console</a>から取得できます。
             </p>
             {isApiKeyValid && (
-              <p className="api-key-status valid">✓ APIキーが設定されています</p>
+              <p className="api-key-status valid">APIキーが設定されています</p>
             )}
           </div>
 
           <div className="settings-actions">
-            <button 
+            <button
               className="btn btn-primary"
               onClick={handleSaveApiKey}
               disabled={!apiKey.trim()}
