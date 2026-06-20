@@ -97,6 +97,7 @@ const BgmPlayer: React.FC = () => {
           } else if (event.data === window.YT.PlayerState.PAUSED) {
             setIsPlaying(false)
           } else if (event.data === window.YT.PlayerState.ENDED) {
+            event.target.seekTo(0)
             event.target.playVideo()
           }
         },

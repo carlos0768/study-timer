@@ -9,12 +9,17 @@ interface TimerProps {
 }
 
 const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = false, onAutoStartConsumed }) => {
-  const [settings, setSettings] = useState<TimerSettings>({
-    countdownMinutes: 25
+  const [settings, setSettings] = useState<TimerSettings>(() => {
+    const saved = localStorage.getItem('timer-settings')
+    if (saved) {
+      try { return JSON.parse(saved) } catch { /* fall through */ }
+    }
+    return { countdownMinutes: 25 }
   })
-  
+
   const [timeLeft, setTimeLeft] = useState(() => settings.countdownMinutes * 60)
   const [isRunning, setIsRunning] = useState(false)
+  const [hasStarted, setHasStarted] = useState(false)
 
   const playBeep = () => {
     try {
@@ -54,14 +59,15 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
     playBeep()
     showNotification()
     setIsRunning(false)
+    setHasStarted(false)
     saveStudyLog(settings.countdownMinutes)
   }, [settings])
 
   useEffect(() => {
-    if (!isRunning) {
+    if (!hasStarted) {
       setTimeLeft(settings.countdownMinutes * 60)
     }
-  }, [settings.countdownMinutes])
+  }, [settings.countdownMinutes, hasStarted])
 
   // Auto-start effect
   useEffect(() => {
@@ -69,10 +75,14 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
       if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission()
       }
+      if (!hasStarted) {
+        setTimeLeft(settings.countdownMinutes * 60)
+      }
       setIsRunning(true)
+      setHasStarted(true)
       onAutoStartConsumed?.()
     }
-  }, [autoStart, hasActiveTasks, isRunning, onAutoStartConsumed])
+  }, [autoStart, hasActiveTasks, isRunning, onAutoStartConsumed, settings.countdownMinutes, hasStarted])
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null
@@ -101,7 +111,11 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
     if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission()
     }
+    if (!hasStarted) {
+      setTimeLeft(settings.countdownMinutes * 60)
+    }
     setIsRunning(true)
+    setHasStarted(true)
   }
 
   const handleStop = () => {
@@ -110,12 +124,15 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
 
   const handleReset = () => {
     setIsRunning(false)
+    setHasStarted(false)
     setTimeLeft(settings.countdownMinutes * 60)
   }
 
   const updateSettings = (key: keyof TimerSettings, value: number) => {
-    setSettings(prev => ({ ...prev, [key]: value }))
-    if (key === 'countdownMinutes' && !isRunning) {
+    const newSettings = { ...settings, [key]: value }
+    setSettings(newSettings)
+    localStorage.setItem('timer-settings', JSON.stringify(newSettings))
+    if (!hasStarted) {
       setTimeLeft(value * 60)
     }
   }
