@@ -69,20 +69,24 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
     }
   }, [settings.countdownMinutes, hasStarted])
 
-  // Auto-start effect
+  // Auto-start effect: use task's estimate_min when available
   useEffect(() => {
     if (autoStart && hasActiveTasks && !isRunning) {
       if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission()
       }
-      if (!hasStarted) {
-        setTimeLeft(settings.countdownMinutes * 60)
-      }
+      const minutes = currentTask?.estimate_min || settings.countdownMinutes
+      setTimeLeft(minutes * 60)
+      setSettings(prev => {
+        const updated = { ...prev, countdownMinutes: minutes }
+        localStorage.setItem('timer-settings', JSON.stringify(updated))
+        return updated
+      })
       setIsRunning(true)
       setHasStarted(true)
       onAutoStartConsumed?.()
     }
-  }, [autoStart, hasActiveTasks, isRunning, onAutoStartConsumed, settings.countdownMinutes, hasStarted])
+  }, [autoStart, hasActiveTasks, isRunning, onAutoStartConsumed, currentTask?.estimate_min, settings.countdownMinutes, hasStarted])
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null
@@ -112,7 +116,8 @@ const Timer: React.FC<TimerProps> = ({ hasActiveTasks, currentTask, autoStart = 
       Notification.requestPermission()
     }
     if (!hasStarted) {
-      setTimeLeft(settings.countdownMinutes * 60)
+      const minutes = currentTask?.estimate_min || settings.countdownMinutes
+      setTimeLeft(minutes * 60)
     }
     setIsRunning(true)
     setHasStarted(true)
